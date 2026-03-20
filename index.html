@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LawnFlex — Your Home Turf Advantage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafdf7;
+            color: #1a2e05;
+            overflow-x: hidden;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .nav-logo {
+            font-weight: 900;
+            font-size: 1.3rem;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .nav-logo .mark {
+            display: inline-block;
+            background: #16a34a;
+            color: #fff;
+            padding: 0.15em 0.45em;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6b7f52;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #16a34a; }
+        .nav-badge {
+            background: #dcfce7;
+            color: #15803d;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* Handwritten accent font */
+        .handwritten {
+            font-family: 'Caveat', cursive;
+            font-weight: 700;
+        }
+
+        /* Social proof strip */
+        .social-proof {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.75rem;
+            padding: 0.85rem 2rem;
+            margin: 0 auto;
+            max-width: 700px;
+            font-size: 0.8rem;
+            color: #8a9a72;
+        }
+        .social-proof .divider {
+            width: 4px;
+            height: 4px;
+            background: #d4dcc8;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .social-proof strong { color: #1a2e05; }
+        .avatar-stack {
+            display: flex;
+            margin-right: 0.3rem;
+        }
+        .avatar-stack span {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid #fafdf7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            margin-left: -8px;
+        }
+        .avatar-stack span:first-child { margin-left: 0; }
+
+        /* Hero */
+        .hero {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.035em;
+            margin-bottom: 1rem;
+        }
+        .hero h1 .green { color: #16a34a; }
+        .hero p {
+            font-size: 1.1rem;
+            color: #6b7f52;
+            line-height: 1.6;
+            max-width: 560px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* Address Input */
+        .address-bar {
+            max-width: 560px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.35rem;
+            background: #fff;
+            border: 2px solid #e2e8d5;
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+        .address-bar:focus-within {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34,197,94,0.1);
+        }
+        .address-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 1rem 1.25rem;
+            font-size: 1.05rem;
+            font-family: 'Inter', sans-serif;
+            background: transparent;
+            color: #1a2e05;
+        }
+        .address-bar input::placeholder { color: #a3b18a; }
+        .address-bar button {
+            padding: 0.85rem 1.5rem;
+            background: #16a34a;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .address-bar button:hover {
+            background: #15803d;
+        }
+
+        .hero-note {
+            font-size: 0.78rem;
+            color: #a3b18a;
+            margin-top: 1rem;
+        }
+
+        /* =========== ZOOM FROM SPACE =========== */
+        .zoom-screen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: #0a0e1a;
+            overflow: hidden;
+        }
+        .zoom-screen.show { display: block; }
+
+        /* Starfield background */
+        .stars {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.8) 0%, transparent 100%),
+                radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.7) 0%, transparent 100%),
+                radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.9) 0%, transparent 100%),
+                radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 45% 50%, rgba(255,255,255,0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 80% 15%, rgba(255,255,255,0.7) 0%, transparent 100%),
+                radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.5) 0%, transparent 100%);
+            opacity: 1;
+            transition: opacity 1.5s;
+        }
+        .zoom-screen.zoomed-in .stars { opacity: 0; }
+
+        /* Map layers — stacked iframes at different zoom levels */
+        .zoom-map-layer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200vmax;
+            height: 200vmax;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 0.8s ease;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .zoom-map-layer iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+        .zoom-map-layer.z-earth {
+            border-radius: 50%;
+            box-shadow: 0 0 80px 20px rgba(56, 152, 236, 0.15), inset 0 0 60px rgba(0,0,0,0.4);
+        }
+        .zoom-map-layer.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .zoom-map-layer.zooming-past {
+            transform: translate(-50%, -50%) scale(8);
+            opacity: 0;
+            transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 0.6s ease 0.4s;
+        }
+
+        /* Final zoom — fills the screen as a rectangle */
+        .zoom-map-layer.z-final {
+            border-radius: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+        .zoom-map-layer.z-final.active {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Overlay HUD on zoom */
+        .zoom-hud {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            text-align: center;
+            color: #fff;
+        }
+        .zoom-hud .hud-address {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 0.5rem 1.25rem;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 0.75rem;
+            white-space: nowrap;
+        }
+        .zoom-steps {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 0.65rem 1.25rem;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .zoom-step {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.35);
+            transition: all 0.4s;
+            white-space: nowrap;
+        }
+        .zoom-step.active { color: rgba(255,255,255,0.9); }
+        .zoom-step.done { color: #4ade80; }
+        .zoom-step .zs-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        .zoom-step.active .zs-dot {
+            border-color: #fff;
+            background: rgba(255,255,255,0.3);
+            box-shadow: 0 0 6px rgba(255,255,255,0.4);
+        }
+        .zoom-step.done .zs-dot {
+            border-color: #4ade80;
+            background: #4ade80;
+        }
+
+        /* Crosshair overlay */
+        .zoom-crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .zoom-screen.zoomed-in .zoom-crosshair { opacity: 1; }
+        .crosshair-ring {
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(34,197,94,0.6);
+            border-radius: 50%;
+            position: relative;
+        }
+        .crosshair-ring::before,
+        .crosshair-ring::after {
+            content: '';
+            position: absolute;
+            background: rgba(34,197,94,0.4);
+        }
+        .crosshair-ring::before {
+            width: 1px;
+            height: 20px;
+            top: -22px;
+            left: 50%;
+        }
+        .crosshair-ring::after {
+            width: 20px;
+            height: 1px;
+            left: -22px;
+            top: 50%;
+        }
+        .crosshair-label {
+            position: absolute;
+            top: 50%;
+            left: calc(50% + 55px);
+            transform: translateY(-50%);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #4ade80;
+            background: rgba(0,0,0,0.6);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            white-space: nowrap;
+            letter-spacing: 0.04em;
+        }
+
+        /* Transition flash when zooming completes */
+        .zoom-flash {
+            position: absolute;
+            inset: 0;
+            background: #fafdf7;
+            opacity: 0;
+            z-index: 20;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+        .zoom-flash.flash { opacity: 1; }
+
+        /* =========== RESULTS =========== */
+        .results {
+            display: none;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+        .results.show { display: block; }
+
+        /* Results header */
+        .results-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid #e8f0dc;
+        }
+        .results-header h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.4rem;
+        }
+        .results-header h2 .green { color: #16a34a; }
+        .results-header p { color: #6b7f52; font-size: 0.95rem; }
+
+        /* Stat cards row */
+        .stat-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .stat-card {
+            background: #fff;
+            border: 1px solid #e8f0dc;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .stat-card .sc-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .stat-card .sc-value {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #16a34a;
+            line-height: 1;
+        }
+        .stat-card .sc-label {
+            font-size: 0.75rem;
+            color: #8a9a72;
+            margin-top: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+        }
+
+        /* Two-column layout */
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Satellite card */
+        .sat-card {
+            background: #fff;
+            border: 1px solid #e8f0dc;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .sat-card .sat-img {
+            width: 100%;
+            height: 280px;
+            background: #1a2e05;
+            position: relative;
+            overflow: hidden;
+        }
+        .sat-card .sat-img iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .sat-card .sat-body {
+            padding: 1.5rem;
+        }
+        .sat-card .sat-body h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+        .sat-card .sat-body p {
+            font-size: 0.88rem;
+            color: #6b7f52;
+            line-height: 1.5;
+        }
+        .lawn-size-display {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.3rem;
+            margin-top: 0.75rem;
+            background: #f0fdf4;
+            border: 1px solid #dcfce7;
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+        }
+        .lawn-size-display .big {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #16a34a;
+        }
+        .lawn-size-display .unit {
+            font-size: 0.8rem;
+            color: #6b7f52;
+            font-weight: 600;
+        }
+
+        /* Lawn size adjuster */
+        .lawn-adjuster {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #fafdf7;
+            border: 1px solid #e8f0dc;
+            border-radius: 12px;
+        }
+        .adjuster-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .adjuster-header label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #6b7f52;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .adjuster-header .adj-value {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #16a34a;
+        }
+        .lawn-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8d5;
+            outline: none;
+            cursor: pointer;
+        }
+        .lawn-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #16a34a;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+        .lawn-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        .lawn-slider::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #16a34a;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            cursor: pointer;
+        }
+        .adjuster-note {
+            font-size: 0.7rem;
+            color: #a3b18a;
+            margin-top: 0.5rem;
+            line-height: 1.4;
+        }
+        .adjuster-note a {
+            color: #16a34a;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .adjuster-updated {
+            display: none;
+            font-size: 0.72rem;
+            color: #16a34a;
+            font-weight: 700;
+            margin-top: 0.4rem;
+            transition: opacity 0.3s;
+        }
+        .adjuster-updated.show {
+            display: block;
+            animation: fadeInOut 2s ease;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Tips card */
+        .tips-card {
+            background: #fff;
+            border: 1px solid #e8f0dc;
+            border-radius: 20px;
+            padding: 1.75rem;
+        }
+        .tips-card h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .tip {
+            display: flex;
+            gap: 0.85rem;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid #f0f4ea;
+        }
+        .tip:last-child { border-bottom: none; }
+        .tip-icon {
+            width: 36px;
+            height: 36px;
+            background: #f0fdf4;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .tip-text h4 {
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-bottom: 0.15rem;
+        }
+        .tip-text p {
+            font-size: 0.8rem;
+            color: #6b7f52;
+            line-height: 1.45;
+        }
+
+        /* Seasonal Calendar */
+        .calendar-section {
+            margin-bottom: 2.5rem;
+        }
+        .calendar-section h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+        .cal-card {
+            background: #fff;
+            border: 1px solid #e8f0dc;
+            border-radius: 16px;
+            padding: 1.25rem;
+            transition: all 0.3s;
+        }
+        .cal-card:hover {
+            border-color: #bbf7d0;
+            box-shadow: 0 4px 16px rgba(34,197,94,0.08);
+        }
+        .cal-card.current {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+        .cal-month {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #8a9a72;
+            margin-bottom: 0.5rem;
+        }
+        .cal-card.current .cal-month { color: #16a34a; }
+        .cal-task {
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .cal-desc {
+            font-size: 0.78rem;
+            color: #6b7f52;
+            line-height: 1.45;
+        }
+        .cal-badge {
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .cal-badge.now { background: #dcfce7; color: #15803d; }
+        .cal-badge.upcoming { background: #fef3c7; color: #92400e; }
+        .cal-badge.later { background: #f1f5f9; color: #64748b; }
+
+        /* Product recommendation cards */
+        .product-rec {
+            margin-top: 0.75rem;
+            background: #f0fdf4;
+            border: 1px solid #dcfce7;
+            border-radius: 10px;
+            padding: 0.65rem 0.85rem;
+        }
+        .product-rec .prod-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #15803d;
+            margin-bottom: 0.3rem;
+        }
+        .product-rec .prod-name {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #1a2e05;
+            margin-bottom: 0.15rem;
+        }
+        .product-rec .prod-details {
+            font-size: 0.72rem;
+            color: #6b7f52;
+            margin-bottom: 0.4rem;
+        }
+        .product-rec .prod-link {
+            display: inline-block;
+            background: #16a34a;
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .product-rec .prod-link:hover {
+            background: #15803d;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(22,163,74,0.25);
+        }
+
+        /* Recommended products section */
+        .products-section {
+            margin-bottom: 2.5rem;
+        }
+        .products-section h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .product-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .p-card {
+            background: #fff;
+            border: 1px solid #e8f0dc;
+            border-radius: 16px;
+            padding: 1.25rem;
+            transition: all 0.3s;
+        }
+        .p-card:hover {
+            border-color: #bbf7d0;
+            box-shadow: 0 4px 16px rgba(34,197,94,0.08);
+            transform: translateY(-2px);
+        }
+        .p-card .p-cat {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #15803d;
+            margin-bottom: 0.4rem;
+        }
+        .p-card .p-name {
+            font-size: 0.95rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+        .p-card .p-desc {
+            font-size: 0.78rem;
+            color: #6b7f52;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+        .p-card .p-price {
+            font-size: 1rem;
+            font-weight: 900;
+            color: #16a34a;
+            margin-bottom: 0.5rem;
+        }
+        .p-card .p-coverage {
+            font-size: 0.7rem;
+            color: #8a9a72;
+            margin-bottom: 0.75rem;
+        }
+        .p-card .prod-link {
+            display: inline-block;
+            background: #16a34a;
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .p-card .prod-link:hover {
+            background: #15803d;
+        }
+
+        /* SMS Signup CTA */
+        .signup-cta {
+            background: #fff;
+            border: 2px solid #dcfce7;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .signup-cta h3 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+        .signup-cta h3 .green { color: #16a34a; }
+        .signup-cta > p {
+            color: #6b7f52;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        .signup-cta .phone-row {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 0.3rem;
+            background: #fafdf7;
+            border: 2px solid #e2e8d5;
+            border-radius: 14px;
+        }
+        .signup-cta .phone-row:focus-within {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34,197,94,0.1);
+        }
+        .signup-cta .phone-row input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 0.9rem 1rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: transparent;
+        }
+        .signup-cta .phone-row input::placeholder { color: #a3b18a; }
+        .signup-cta .phone-row button {
+            padding: 0.8rem 1.25rem;
+            background: #16a34a;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 800;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+        .signup-cta .phone-row button:hover { background: #15803d; }
+        .signup-cta .note {
+            font-size: 0.75rem;
+            color: #a3b18a;
+            margin-top: 0.75rem;
+        }
+
+        .signup-success {
+            display: none;
+            padding: 2rem;
+            text-align: center;
+        }
+        .signup-success.show { display: block; }
+        .signup-success .ico { font-size: 2rem; margin-bottom: 0.5rem; }
+        .signup-success h3 { color: #15803d; font-size: 1.2rem; margin-bottom: 0.25rem; }
+        .signup-success p { color: #6b7f52; font-size: 0.9rem; }
+
+        /* Sample SMS */
+        .sample-sms {
+            background: #f0fdf4;
+            border: 1px solid #dcfce7;
+            border-radius: 16px;
+            padding: 1.25rem;
+            max-width: 400px;
+            margin: 1.5rem auto 0;
+            text-align: left;
+            font-size: 0.85rem;
+            line-height: 1.55;
+        }
+        .sample-sms .sms-label {
+            font-size: 0.7rem;
+            color: #15803d;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.5rem;
+        }
+        .sample-sms strong { color: #15803d; }
+        .sample-sms .link { color: #ea580c; font-weight: 700; }
+
+        /* Testimonials */
+        .testimonials {
+            margin-bottom: 2.5rem;
+        }
+        .testimonials h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        .t-card {
+            background: #fff;
+            border: 1px solid #e8f0dc;
+            border-radius: 16px;
+            padding: 1.25rem;
+        }
+        .t-card .t-stars {
+            color: #f59e0b;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+        .t-card .t-text {
+            font-size: 0.88rem;
+            line-height: 1.55;
+            color: #3d4f2a;
+            margin-bottom: 0.75rem;
+            font-style: italic;
+        }
+        .t-card .t-author {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #8a9a72;
+        }
+        .t-card .t-author span {
+            font-weight: 400;
+            color: #a3b18a;
+        }
+
+        /* Founder note */
+        .founder-note {
+            background: #fff;
+            border: 1px solid #e8f0dc;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+        .founder-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        .founder-text {
+            flex: 1;
+        }
+        .founder-text .f-name {
+            font-weight: 800;
+            font-size: 0.88rem;
+            margin-bottom: 0.15rem;
+        }
+        .founder-text .f-title {
+            font-size: 0.72rem;
+            color: #8a9a72;
+            margin-bottom: 0.65rem;
+            font-weight: 600;
+        }
+        .founder-text p {
+            font-size: 0.88rem;
+            color: #4a5d35;
+            line-height: 1.6;
+        }
+
+        /* How it works */
+        .how-it-works {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+            text-align: center;
+        }
+        .how-it-works h2 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.4rem;
+        }
+        .how-it-works h2 .green { color: #16a34a; }
+        .how-it-works > p {
+            color: #6b7f52;
+            font-size: 0.92rem;
+            margin-bottom: 2rem;
+        }
+        .steps-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            text-align: left;
+        }
+        .step-card {
+            background: #fff;
+            border: 1px solid #e8f0dc;
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #16a34a;
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+        .step-card h4 {
+            font-size: 0.95rem;
+            font-weight: 800;
+            margin-bottom: 0.35rem;
+        }
+        .step-card p {
+            font-size: 0.82rem;
+            color: #6b7f52;
+            line-height: 1.5;
+        }
+        .step-card .step-note {
+            font-family: 'Caveat', cursive;
+            font-size: 0.95rem;
+            color: #16a34a;
+            margin-top: 0.5rem;
+        }
+
+        /* Hero annotation */
+        .hero-annotation {
+            font-family: 'Caveat', cursive;
+            font-size: 1.15rem;
+            color: #16a34a;
+            transform: rotate(-2deg);
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            font-size: 0.78rem;
+            color: #a3b18a;
+            border-top: 1px solid #e8f0dc;
+        }
+        .footer-inner {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .footer-links a {
+            color: #8a9a72;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .footer-links a:hover { color: #16a34a; }
+        .footer-tagline {
+            font-family: 'Caveat', cursive;
+            font-size: 1rem;
+            color: #6b7f52;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .address-bar { flex-direction: column; padding: 0.5rem; }
+            .address-bar button { width: 100%; }
+            .results-grid { grid-template-columns: 1fr; }
+            .stat-cards { grid-template-columns: repeat(2, 1fr); }
+            .signup-cta .phone-row { flex-direction: column; }
+            .signup-cta .phone-row button { width: 100%; }
+            .social-proof { flex-wrap: wrap; gap: 0.75rem; font-size: 0.75rem; }
+            .social-proof .divider { display: none; }
+            .nav-links a { display: none; }
+            .founder-note { flex-direction: column; }
+            .testimonial-grid { grid-template-columns: 1fr; }
+            .steps-row { grid-template-columns: 1fr; }
+            .zoom-steps { flex-wrap: wrap; justify-content: center; }
+            .zoom-hud .hud-address { font-size: 0.65rem; }
+            .crosshair-ring { width: 60px; height: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-logo"><span class="mark">LF</span> LawnFlex</div>
+    <div class="nav-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#products-section" onclick="handleProductsClick(event)">Products</a>
+        <div class="nav-badge">Just Launched</div>
+    </div>
+</nav>
+
+<!-- Hero — Address Entry -->
+<section class="hero" id="hero-section">
+    <div class="hero-annotation">^ customized to your region, your grass, your yard</div>
+    <h1>YOUR TURF.<br><span class="green">HOME ADVANTAGE.</span></h1>
+    <p>Lawn care isn't one-size-fits-all. What works in Texas will wreck a lawn in Ohio. Drop your address and get a plan built for your region, your grass type, and your yard.</p>
+
+    <div class="address-bar">
+        <input type="text" id="address-input" placeholder="123 Main St, Anytown, OH 44101" autocomplete="street-address" />
+        <button onclick="analyzeAddress()">Scout My Lawn</button>
+    </div>
+    <p class="hero-note">Takes about 4 seconds. Seriously.</p>
+
+    <div class="social-proof">
+        <span>Customized to <strong>your region</strong></span>
+        <div class="divider"></div>
+        <span>Matched to <strong>your grass type</strong></span>
+        <div class="divider"></div>
+        <span>Sized to <strong>your yard</strong></span>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="how-it-works" id="how-it-works">
+    <h2>Your lawn isn't generic. <span class="green">Your plan shouldn't be either.</span></h2>
+    <p>No account, no app, no sales pitch. Just your address.</p>
+    <div class="steps-row">
+        <div class="step-card">
+            <div class="step-num">1</div>
+            <h4>We find your yard</h4>
+            <p>Satellite view, climate zone, grass type, and estimated lawn size — all from your address. We figure out what kind of turf you're working with.</p>
+            <div class="step-note">^ Colorado lawn ≠ Florida lawn</div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">2</div>
+            <h4>You get a local plan</h4>
+            <p>Month-by-month calendar tuned to your region. The right products, the right amounts, the right timing — not generic advice from a bag label.</p>
+            <div class="step-note">^ the home turf advantage</div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">3</div>
+            <h4>We alert you when it's go-time</h4>
+            <p>Soil temps in your area hit the sweet spot? We text you that day with what to apply and a link to grab it. No more missed windows.</p>
+            <div class="step-note">^ timing is everything</div>
+        </div>
+    </div>
+</section>
+
+<!-- Zoom From Space Animation -->
+<div class="zoom-screen" id="zoom-screen">
+    <div class="stars"></div>
+
+    <!-- Map layers at different zoom levels — loaded dynamically -->
+    <div class="zoom-map-layer z-earth" id="zl-1"></div>
+    <div class="zoom-map-layer" id="zl-2"></div>
+    <div class="zoom-map-layer" id="zl-3"></div>
+    <div class="zoom-map-layer z-final" id="zl-4"></div>
+
+    <!-- Crosshair targeting overlay -->
+    <div class="zoom-crosshair">
+        <div class="crosshair-ring"></div>
+        <div class="crosshair-label" id="crosshair-label">LOCATING...</div>
+    </div>
+
+    <!-- Bottom HUD -->
+    <div class="zoom-hud">
+        <div class="hud-address" id="hud-address"></div>
+        <div class="zoom-steps">
+            <div class="zoom-step" id="zs-1"><div class="zs-dot"></div> Locating</div>
+            <div class="zoom-step" id="zs-2"><div class="zs-dot"></div> Satellite</div>
+            <div class="zoom-step" id="zs-3"><div class="zs-dot"></div> Measuring</div>
+            <div class="zoom-step" id="zs-4"><div class="zs-dot"></div> Analyzing</div>
+            <div class="zoom-step" id="zs-5"><div class="zs-dot"></div> Done</div>
+        </div>
+    </div>
+
+    <!-- White flash transition -->
+    <div class="zoom-flash" id="zoom-flash"></div>
+</div>
+
+<!-- Results -->
+<div class="results" id="results">
+
+    <div class="results-header">
+        <h2>Here's your <span class="green">home turf advantage</span>.</h2>
+        <p id="display-address"></p>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="stat-cards">
+        <div class="stat-card">
+            <div class="sc-icon">&#128207;</div>
+            <div class="sc-value" id="sc-size">—</div>
+            <div class="sc-label">Est. Lawn Size</div>
+        </div>
+        <div class="stat-card">
+            <div class="sc-icon">&#127777;&#65039;</div>
+            <div class="sc-value" id="sc-temp">—</div>
+            <div class="sc-label">Soil Temp</div>
+        </div>
+        <div class="stat-card">
+            <div class="sc-icon">&#127806;</div>
+            <div class="sc-value" id="sc-grass">—</div>
+            <div class="sc-label">Grass Type</div>
+        </div>
+        <div class="stat-card">
+            <div class="sc-icon">&#127758;</div>
+            <div class="sc-value" id="sc-zone">—</div>
+            <div class="sc-label">Climate Zone</div>
+        </div>
+    </div>
+
+    <!-- Two-column: Satellite + Tips -->
+    <div class="results-grid">
+        <div class="sat-card">
+            <div class="sat-img" id="sat-map"></div>
+            <div class="sat-body">
+                <h3>That's your yard right there</h3>
+                <p>We estimated your mowable turf based on typical lot sizes in your area. Drag the slider to dial it in — your product quantities update automatically.</p>
+                <div class="lawn-size-display">
+                    <span class="big" id="lawn-sq">—</span>
+                    <span class="unit">sq ft of lawn</span>
+                </div>
+                <div class="lawn-adjuster">
+                    <div class="adjuster-header">
+                        <label>Adjust your lawn size</label>
+                        <span class="adj-value" id="adj-value">—</span>
+                    </div>
+                    <input type="range" class="lawn-slider" id="lawn-slider" min="500" max="25000" step="100" value="4000" />
+                    <div class="adjuster-note">Not sure? <a href="https://www.mapdevelopers.com/area_finder.php" target="_blank">Measure it on a map</a> or check your property tax records for lot size, then subtract the house footprint.</div>
+                    <div class="adjuster-updated" id="adj-updated">Product quantities updated!</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-card">
+            <h3>&#127942; Local intel for your region</h3>
+            <div id="tips-container"></div>
+        </div>
+    </div>
+
+    <!-- Seasonal Calendar -->
+    <div class="calendar-section">
+        <h3>&#128197; Your region's calendar <span class="handwritten" style="color:#16a34a;font-size:0.95rem;margin-left:0.3rem;">(we'll remind you)</span></h3>
+        <div class="calendar-grid" id="calendar-grid"></div>
+    </div>
+
+    <!-- Recommended Products -->
+    <div class="products-section" id="products-section">
+        <h3>&#128722; Products matched to your zone <span class="handwritten" style="color:#16a34a;font-size:0.95rem;margin-left:0.3rem;">(we use these too)</span></h3>
+        <div class="product-cards" id="product-cards"></div>
+    </div>
+
+    <!-- Early adopter CTA -->
+    <div class="testimonials" id="testimonials-section">
+        <h3>We just launched — you're early</h3>
+        <div class="testimonial-grid">
+            <div class="t-card">
+                <div class="t-stars" style="color:#16a34a;">&#127793;</div>
+                <div class="t-text" style="font-style:normal;">LawnFlex is brand new. We're a small crew that got tired of vague lawn care advice and built the tool we wished existed. Right now we're giving everything away free to get feedback and grow.</div>
+                <div class="t-author">Got thoughts? <span><a href="mailto:help@lawnflex.coach" style="color:#16a34a;text-decoration:none;">help@lawnflex.coach</a></span></div>
+            </div>
+            <div class="t-card">
+                <div class="t-stars" style="color:#16a34a;">&#128232;</div>
+                <div class="t-text" style="font-style:normal;">Sign up for text alerts and be one of the first people to try them. We'll tell you when soil temps hit the right window — no more guessing, no more missed applications.</div>
+                <div class="t-author">Early members get <span>priority support forever</span></div>
+            </div>
+            <div class="t-card">
+                <div class="t-stars" style="color:#16a34a;">&#128170;</div>
+                <div class="t-text" style="font-style:normal;">We're adding new features fast: more product options, grass-type-specific plans, local weather integration, and more. If there's something you want, tell us and we'll build it.</div>
+                <div class="t-author">Feature requests? <span><a href="mailto:help@lawnflex.coach" style="color:#16a34a;text-decoration:none;">We're all ears</a></span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Founder note -->
+    <div class="founder-note">
+        <div class="founder-avatar">&#127793;</div>
+        <div class="founder-text">
+            <div class="f-name">Why I built this</div>
+            <div class="f-title">The short version</div>
+            <p>I grew up in Colorado watching my dad obsess over our lawn — out there every weekend with a spreader, checking soil temps before anyone had an app for it. Born and raised in Colorado, cultivated in Illinois, Tennessee, and Ohio — and somewhere along the way I picked up everything he knew. The problem? Most people don't have a dad like that. They Google "when to fertilize" and get 40 conflicting answers, then panic-buy $300 worth of stuff at Home Depot that's wrong for their zone. So I built the thing I wished existed — drop your address, get the actual plan, buy the exact products. We just launched this spring and I'm building it in public. We recommend Anderson's because their products get results and they ship free. If you try it and it helps your lawn, that's all I need.</p>
+        </div>
+    </div>
+
+    <!-- SMS Signup -->
+    <div class="signup-cta">
+        <h3>Coming soon: we'll <span class="green">text you</span> when it's time.</h3>
+        <p>We're building text alerts that watch soil temps in your area and ping you the exact day it's time to apply — with a link to buy the right product. Sign up now and be first in line.</p>
+
+        <div id="signup-form">
+            <div class="phone-row">
+                <input type="tel" id="phone-input" placeholder="(555) 123-4567" />
+                <button onclick="submitPhone()">Get Alerts</button>
+            </div>
+            <p class="note">~4 texts per season. No spam, no sales calls. Reply STOP anytime.</p>
+        </div>
+
+        <div class="signup-success" id="signup-ok">
+            <div class="ico">&#127942;</div>
+            <h3>You're in the game!</h3>
+            <p>We'll text you when it's time to treat your <span id="ok-size"></span> sq ft lawn.</p>
+        </div>
+
+        <div class="sample-sms">
+            <div class="sms-label">&#128994; Sample LawnFlex Alert</div>
+            <strong>GAME TIME:</strong> Soil temps hit <strong id="sms-temp">55&#176;F</strong> in your area. Apply pre-emergent to your <strong id="sms-size">4,200 sq ft</strong> lawn. Coach recommends <strong>Anderson's Barricade Plus 18-0-4</strong> — pre-emergent + fertilizer in one app. <strong id="sms-bags">$47.88</strong>, free shipping.<br>
+            <span class="link">&#128722; Buy from Anderson's &rarr;</span>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-tagline">Stop guessing. Start growing.</div>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">How It Works</a>
+            <a href="#">Products</a>
+            <a href="mailto:help@lawnflex.coach">Contact</a>
+        </div>
+        <p>&copy; 2026 LawnFlex &middot; lawnflex.coach &middot; Born and raised in Colorado. Cultivated in Illinois, Tennessee, and Ohio.</p>
+        <p style="margin-top:0.35rem;font-size:0.7rem;color:#c4cdb3;">We earn a small commission when you buy through our links. It keeps the lights on and the content free.</p>
+    </div>
+</footer>
+
+<script>
+// ==============================
+// AFFILIATE CONFIG
+// ==============================
+// TODO: Replace YOUR_AFFILIATE_ID with your Refersion affiliate ID once approved
+const AFFILIATE_ID = 'YOUR_AFFILIATE_ID';
+
+// TODO: Replace YOUR_FORMSPREE_ID with your Formspree form ID (e.g., 'xABCDEFG')
+// Sign up at formspree.io → New Form → copy the ID from the endpoint URL
+const FORMSPREE_ID = 'mgonnnnw';
+function affLink(productSlug) {
+    return `https://andersonslawn.com/products/${productSlug}?rfsn=${AFFILIATE_ID}`;
+}
+
+// ==============================
+// ANDERSON'S PRODUCT CATALOG
+// ==============================
+const products = {
+    preemergent: {
+        name: "Barricade\u00AE Plus Lawn Food 18-0-4",
+        cat: "Pre-Emergent + Fertilizer",
+        desc: "Prevents crabgrass & 24 weeds + feeds your lawn in one app.",
+        price: "$47.88",
+        coverage: "5,000 sq ft",
+        coverageSqFt: 5000,
+        slug: "barricade-plus-lawn-food-18-0-4"
+    },
+    preemergentOnly: {
+        name: "Barricade\u00AE",
+        cat: "Pre-Emergent Weed Control",
+        desc: "Professional-grade pre-emergent. Prevents crabgrass for up to 4 months.",
+        price: "$46.88",
+        coverage: "5,800 sq ft",
+        coverageSqFt: 5800,
+        slug: "barricade"
+    },
+    crabgrassPreventer: {
+        name: "Crabgrass Preventer Plus Lawn Food 26-0-6",
+        cat: "Pre-Emergent + Fertilizer",
+        desc: "Dimension pre-emergent + quick & slow-release nitrogen for spring green-up.",
+        price: "$45.88",
+        coverage: "5,000 sq ft",
+        coverageSqFt: 5000,
+        slug: "crabgrass-preventer-plus-lawn-food-26-0-6"
+    },
+    springFert: {
+        name: "Core\u2122 24-6-12",
+        cat: "All-Purpose Fertilizer",
+        desc: "Professional-grade with micronutrients and iron. Quick + slow-release nitrogen.",
+        price: "$47.88",
+        coverage: "6,200 sq ft",
+        coverageSqFt: 6200,
+        slug: "core-24-6-12"
+    },
+    summerFert: {
+        name: "DGL Dark Green Lawn\u2122 25-0-0",
+        cat: "Summer Fertilizer",
+        desc: "Pure nitrogen for deep green color. Humic acid for soil health.",
+        price: "$54.88",
+        coverage: "5,000 sq ft",
+        coverageSqFt: 5000,
+        slug: "dgl-dark-green-lawn-25-0-0"
+    },
+    fallFert: {
+        name: "Contec DG\u00AE 18-3-18",
+        cat: "Fall / Winterizer Fertilizer",
+        desc: "High potassium for winter hardiness. DG technology for even coverage.",
+        price: "$64.88",
+        coverage: "5,000 sq ft",
+        coverageSqFt: 5000,
+        slug: "contec-dg-18-3-18"
+    },
+    carbonCoat: {
+        name: "CarbonCoat\u00AE 34-0-6",
+        cat: "Premium Fertilizer",
+        desc: "Carbon-coated for slow, even release. High nitrogen for dense growth.",
+        price: "$64.88",
+        coverage: "8,000 sq ft",
+        coverageSqFt: 8000,
+        slug: "carboncoat-34-0-6"
+    },
+    soilAmendment: {
+        name: "BioChar DG\u2122",
+        cat: "Organic Soil Amendment",
+        desc: "Improves soil structure and nutrient retention. Great for fall renovation.",
+        price: "$44.88",
+        coverage: "10,000 sq ft",
+        coverageSqFt: 10000,
+        slug: "biochar-dg"
+    },
+    insectControl: {
+        name: "Bifen 7.9F Select\u2122",
+        cat: "Liquid Insect Control",
+        desc: "Kills grubs, armyworms, chinch bugs, and more. Pro-grade bifenthrin.",
+        price: "$29.88",
+        coverage: "Varies",
+        coverageSqFt: 10000,
+        slug: "bifen-select"
+    },
+    fullProgram: {
+        name: "Andersons Lawn Program",
+        cat: "Full Season Bundle",
+        desc: "Complete 4-step program: pre-emergent, weed & feed, lawn food, and fall fertilizer.",
+        price: "$161.88",
+        coverage: "5,000 sq ft",
+        coverageSqFt: 5000,
+        slug: "andersons-lawn-program"
+    },
+    fullProgramPlus: {
+        name: "Andersons Lawn Program Plus",
+        cat: "Full Season Bundle",
+        desc: "Premium 4-step program with professional-grade products for best results.",
+        price: "$242.88",
+        coverage: "5,000 sq ft",
+        coverageSqFt: 5000,
+        slug: "andersons-lawn-program-plus"
+    }
+};
+
+// Products to recommend per region
+const regionProducts = {
+    northeast: ['fullProgram', 'preemergent', 'springFert', 'fallFert', 'soilAmendment'],
+    southeast: ['fullProgram', 'crabgrassPreventer', 'summerFert', 'insectControl', 'carbonCoat'],
+    midwest: ['fullProgram', 'preemergent', 'springFert', 'fallFert', 'soilAmendment'],
+    west: ['fullProgram', 'preemergentOnly', 'springFert', 'summerFert', 'soilAmendment'],
+    south_central: ['fullProgram', 'crabgrassPreventer', 'summerFert', 'insectControl', 'carbonCoat']
+};
+
+// ==============================
+// REGIONAL DATA
+// ==============================
+const regionData = {
+    northeast: {
+        states: ['CT','DE','MA','MD','ME','NH','NJ','NY','PA','RI','VT','DC'],
+        zone: 'Cool-Season (Zone 5-7)',
+        zoneShort: '5-7',
+        grass: 'KBG / Fescue',
+        soilTemp: '48',
+        avgLot: 8500,
+        turfPct: 0.55,
+        tips: [
+            { icon: '&#129503;', title: 'Overseed in early fall', desc: 'September is your golden window. Cool-season grasses like Kentucky Bluegrass and Tall Fescue establish best when soil temps are 50-65\u00B0F.' },
+            { icon: '&#10052;&#65039;', title: 'Winterize in November', desc: 'Apply a high-potassium fertilizer before the first hard freeze to strengthen roots for winter dormancy.' },
+            { icon: '&#127793;', title: 'Pre-emergent by April', desc: 'Crabgrass starts germinating when soil temps hit 55\u00B0F for 3+ days. Don\'t miss this window.' },
+            { icon: '&#128167;', title: 'Watch for fungus in humid summers', desc: 'Brown patch and dollar spot thrive in Northeast humidity. Water early morning, never at night.' }
+        ],
+        calendar: [
+            { months: 'MAR \u2013 APR', task: 'Pre-emergent application', desc: 'Apply when soil temps hit 55\u00B0F for 3 consecutive days. Prevents crabgrass.', badge: 'now', product: 'preemergent' },
+            { months: 'APR \u2013 MAY', task: 'Spring fertilizer', desc: 'Light nitrogen application to green up. Don\'t overdo it \u2014 save the heavy feeding for fall.', badge: 'upcoming', product: 'springFert' },
+            { months: 'JUN \u2013 AUG', task: 'Mow high & water deep', desc: 'Set mower to 3.5\u20134\". Water 1\u20131.5\" per week in early morning only.', badge: 'later', product: null },
+            { months: 'SEP', task: 'Overseed + fall fertilizer', desc: 'THE most important month for cool-season lawns. Aerate, overseed, and fertilize.', badge: 'later', product: 'fallFert' },
+            { months: 'OCT \u2013 NOV', task: 'Winterizer fertilizer', desc: 'Final feeding before dormancy. High potassium to strengthen roots for winter.', badge: 'later', product: 'fallFert' }
+        ]
+    },
+    southeast: {
+        states: ['AL','AR','FL','GA','KY','LA','MS','NC','SC','TN','VA','WV'],
+        zone: 'Warm-Season (Zone 7-10)',
+        zoneShort: '7-10',
+        grass: 'Bermuda / Zoysia',
+        soilTemp: '62',
+        avgLot: 9200,
+        turfPct: 0.50,
+        tips: [
+            { icon: '&#9728;&#65039;', title: 'Bermuda loves the heat', desc: 'Your warm-season grass thrives in summer. Push nitrogen fertilizer May through August for maximum growth.' },
+            { icon: '&#128027;', title: 'Watch for armyworms', desc: 'Fall armyworms can devastate a lawn overnight in the Southeast. Scout regularly Aug\u2013Oct and treat immediately.' },
+            { icon: '&#128167;', title: 'Manage moisture carefully', desc: 'Humidity promotes fungal disease. Water deeply but infrequently \u2014 1\" twice a week, early morning only.' },
+            { icon: '&#127777;&#65039;', title: 'Pre-emergent earlier than you think', desc: 'Soil temps warm fast down south. Apply pre-emergent in late February to early March.' }
+        ],
+        calendar: [
+            { months: 'FEB \u2013 MAR', task: 'Pre-emergent application', desc: 'Apply early \u2014 soil temps warm fast in the Southeast. Target before 55\u00B0F threshold.', badge: 'now', product: 'crabgrassPreventer' },
+            { months: 'APR \u2013 MAY', task: 'Green-up fertilizer', desc: 'Bermuda and Zoysia wake up as temps rise. First nitrogen app when fully green.', badge: 'upcoming', product: 'springFert' },
+            { months: 'JUN \u2013 AUG', task: 'Peak growth \u2014 feed & mow', desc: 'Heavy nitrogen period for warm-season grass. Mow frequently, water deeply.', badge: 'later', product: 'summerFert' },
+            { months: 'SEP \u2013 OCT', task: 'Post-emergent weed control', desc: 'Target broadleaf weeds as temps cool. Last chance before grass goes dormant.', badge: 'later', product: null },
+            { months: 'NOV \u2013 DEC', task: 'Overseed with ryegrass (optional)', desc: 'For green winter color, overseed Bermuda with perennial ryegrass.', badge: 'later', product: null }
+        ]
+    },
+    midwest: {
+        states: ['IA','IL','IN','KS','MI','MN','MO','ND','NE','OH','OK','SD','WI'],
+        zone: 'Cool-Season (Zone 4-6)',
+        zoneShort: '4-6',
+        grass: 'KBG / Fescue',
+        soilTemp: '44',
+        avgLot: 10500,
+        turfPct: 0.60,
+        tips: [
+            { icon: '&#10052;&#65039;', title: 'Prep for harsh winters', desc: 'Midwest winters are brutal. A strong fall fertilizer program and late-season mowing help grass survive.' },
+            { icon: '&#127793;', title: 'Soil test every 2\u20133 years', desc: 'Midwest soils vary wildly. A $15 soil test prevents wasting hundreds on the wrong products.' },
+            { icon: '&#128167;', title: 'Clay soil needs aeration', desc: 'Heavy Midwest clay compacts fast. Core aerate every fall to let water and nutrients reach roots.' },
+            { icon: '&#129503;', title: 'Fall is king', desc: 'September overseeding + fall fertilizer is the #1 thing you can do for a Midwest lawn. Don\'t skip it.' }
+        ],
+        calendar: [
+            { months: 'APR', task: 'Pre-emergent application', desc: 'Soil temps lag behind the coasts. Wait for consistent 55\u00B0F readings before applying.', badge: 'now', product: 'preemergent' },
+            { months: 'MAY', task: 'Spring fertilizer + weed control', desc: 'Combo product with slow-release nitrogen and broadleaf herbicide.', badge: 'upcoming', product: 'springFert' },
+            { months: 'JUN \u2013 AUG', task: 'Mow high, water smart', desc: 'Drought stress is real in Midwest summers. Mow at 3.5\u201d+ and water deeply twice a week.', badge: 'later', product: null },
+            { months: 'SEP', task: 'Aerate + overseed + fertilize', desc: 'The single most important month. Core aerate, overseed thin areas, and apply fall fertilizer.', badge: 'later', product: 'fallFert' },
+            { months: 'OCT \u2013 NOV', task: 'Winterizer application', desc: 'Final fertilizer app. Time it 2\u20133 weeks before ground freezes.', badge: 'later', product: 'fallFert' }
+        ]
+    },
+    west: {
+        states: ['AZ','CA','CO','ID','MT','NM','NV','OR','UT','WA','WY'],
+        zone: 'Varies (Zone 4-10)',
+        zoneShort: '4-10',
+        grass: 'Fescue / Bermuda',
+        soilTemp: '55',
+        avgLot: 7800,
+        turfPct: 0.40,
+        tips: [
+            { icon: '&#128167;', title: 'Water conservation is critical', desc: 'Many Western states have watering restrictions. Use smart controllers and water early morning for minimal evaporation.' },
+            { icon: '&#127777;&#65039;', title: 'Know your microclimate', desc: 'The West has extreme variation \u2014 coastal vs. desert vs. mountain. Local soil temps matter more than state averages.' },
+            { icon: '&#129503;', title: 'Consider drought-tolerant varieties', desc: 'Tall Fescue and Buffalo grass handle drought better than Kentucky Bluegrass in arid Western climates.' },
+            { icon: '&#9728;&#65039;', title: 'Adjust for elevation', desc: 'Higher elevations get more UV. Grass can burn faster \u2014 keep mowing height up and water consistently.' }
+        ],
+        calendar: [
+            { months: 'MAR', task: 'Pre-emergent application', desc: 'Timing varies by elevation. Monitor soil temps \u2014 coastal areas warm earlier than mountain regions.', badge: 'now', product: 'preemergentOnly' },
+            { months: 'APR \u2013 MAY', task: 'Spring fertilizer', desc: 'Light application. Western soils are often alkaline \u2014 consider iron supplements for green color.', badge: 'upcoming', product: 'springFert' },
+            { months: 'JUN \u2013 AUG', task: 'Water management', desc: 'Focus on deep, infrequent watering. Check local water restrictions. Cycle-and-soak method works well.', badge: 'later', product: 'summerFert' },
+            { months: 'SEP \u2013 OCT', task: 'Overseed cool-season / feed warm-season', desc: 'Fall renovation for Fescue lawns. Last nitrogen push for Bermuda before dormancy.', badge: 'later', product: 'soilAmendment' },
+            { months: 'NOV', task: 'Winterize & final mow', desc: 'Lower mower height gradually. Apply winterizer if you have cool-season grass.', badge: 'later', product: null }
+        ]
+    },
+    south_central: {
+        states: ['TX'],
+        zone: 'Warm-Season (Zone 7-9)',
+        zoneShort: '7-9',
+        grass: 'St. Augustine / Bermuda',
+        soilTemp: '64',
+        avgLot: 8000,
+        turfPct: 0.45,
+        tips: [
+            { icon: '&#9728;&#65039;', title: 'Texas heat is no joke', desc: 'St. Augustine and Bermuda handle the heat but need consistent deep watering. 1\u20131.5\" per week minimum.' },
+            { icon: '&#128027;', title: 'Chinch bugs love St. Augustine', desc: 'Check for yellowing patches in July\u2013August. Chinch bugs are the #1 pest for Texas lawns.' },
+            { icon: '&#127777;&#65039;', title: 'Pre-emergent in February', desc: 'Texas soil warms early. Apply pre-emergent by mid-February in South Texas, early March in North Texas.' },
+            { icon: '&#128167;', title: 'Water restrictions are real', desc: 'Most Texas cities limit watering to 2x/week. Water deeply, not frequently, early in the morning.' }
+        ],
+        calendar: [
+            { months: 'FEB', task: 'Pre-emergent application', desc: 'Texas warms early. Apply by mid-Feb in the south, early Mar in the north.', badge: 'now', product: 'crabgrassPreventer' },
+            { months: 'MAR \u2013 APR', task: 'First fertilizer', desc: 'Feed St. Augustine or Bermuda as it greens up. Slow-release nitrogen is best.', badge: 'upcoming', product: 'springFert' },
+            { months: 'MAY \u2013 AUG', task: 'Peak growth + pest watch', desc: 'Heavy feeding period. Watch for chinch bugs and grub worms. Water deeply.', badge: 'later', product: 'summerFert' },
+            { months: 'SEP \u2013 OCT', task: 'Fall weed control', desc: 'Apply pre-emergent for winter weeds (Poa annua). Last fertilizer app.', badge: 'later', product: 'insectControl' },
+            { months: 'NOV \u2013 DEC', task: 'Dormancy prep', desc: 'Warm-season grass goes dormant. Final mow at normal height. No fertilizer.', badge: 'later', product: null }
+        ]
+    }
+};
+
+// State to region lookup
+function getRegion(state) {
+    for (const [region, data] of Object.entries(regionData)) {
+        if (data.states.includes(state)) return region;
+    }
+    return 'northeast'; // fallback
+}
+
+// Simple state extraction from address
+function extractState(address) {
+    const stateMap = {
+        'alabama': 'AL', 'alaska': 'AK', 'arizona': 'AZ', 'arkansas': 'AR',
+        'california': 'CA', 'colorado': 'CO', 'connecticut': 'CT', 'delaware': 'DE',
+        'florida': 'FL', 'georgia': 'GA', 'hawaii': 'HI', 'idaho': 'ID',
+        'illinois': 'IL', 'indiana': 'IN', 'iowa': 'IA', 'kansas': 'KS',
+        'kentucky': 'KY', 'louisiana': 'LA', 'maine': 'ME', 'maryland': 'MD',
+        'massachusetts': 'MA', 'michigan': 'MI', 'minnesota': 'MN', 'mississippi': 'MS',
+        'missouri': 'MO', 'montana': 'MT', 'nebraska': 'NE', 'nevada': 'NV',
+        'new hampshire': 'NH', 'new jersey': 'NJ', 'new mexico': 'NM', 'new york': 'NY',
+        'north carolina': 'NC', 'north dakota': 'ND', 'ohio': 'OH', 'oklahoma': 'OK',
+        'oregon': 'OR', 'pennsylvania': 'PA', 'rhode island': 'RI', 'south carolina': 'SC',
+        'south dakota': 'SD', 'tennessee': 'TN', 'texas': 'TX', 'utah': 'UT',
+        'vermont': 'VT', 'virginia': 'VA', 'washington': 'WA', 'west virginia': 'WV',
+        'wisconsin': 'WI', 'wyoming': 'WY'
+    };
+    const abbrevs = Object.values(stateMap);
+    const upper = address.toUpperCase();
+
+    // Try 2-letter abbreviation
+    for (const abbr of abbrevs) {
+        const regex = new RegExp(`\\b${abbr}\\b`);
+        if (regex.test(upper)) return abbr;
+    }
+
+    // Try full state names
+    const lower = address.toLowerCase();
+    for (const [name, abbr] of Object.entries(stateMap)) {
+        if (lower.includes(name)) return abbr;
+    }
+
+    // Fallback: try zip code ranges (simplified)
+    const zipMatch = address.match(/\b(\d{5})\b/);
+    if (zipMatch) {
+        const zip = parseInt(zipMatch[1]);
+        if (zip >= 10000 && zip <= 14999) return 'NY';
+        if (zip >= 15000 && zip <= 19699) return 'PA';
+        if (zip >= 20000 && zip <= 20599) return 'DC';
+        if (zip >= 20600 && zip <= 21999) return 'MD';
+        if (zip >= 22000 && zip <= 24699) return 'VA';
+        if (zip >= 25000 && zip <= 26999) return 'WV';
+        if (zip >= 27000 && zip <= 28999) return 'NC';
+        if (zip >= 29000 && zip <= 29999) return 'SC';
+        if (zip >= 30000 && zip <= 31999) return 'GA';
+        if (zip >= 32000 && zip <= 34999) return 'FL';
+        if (zip >= 35000 && zip <= 36999) return 'AL';
+        if (zip >= 37000 && zip <= 38599) return 'TN';
+        if (zip >= 38600 && zip <= 39999) return 'MS';
+        if (zip >= 40000 && zip <= 42799) return 'KY';
+        if (zip >= 43000 && zip <= 45999) return 'OH';
+        if (zip >= 46000 && zip <= 47999) return 'IN';
+        if (zip >= 48000 && zip <= 49999) return 'MI';
+        if (zip >= 50000 && zip <= 52999) return 'IA';
+        if (zip >= 53000 && zip <= 54999) return 'WI';
+        if (zip >= 55000 && zip <= 56999) return 'MN';
+        if (zip >= 57000 && zip <= 57999) return 'SD';
+        if (zip >= 58000 && zip <= 58999) return 'ND';
+        if (zip >= 59000 && zip <= 59999) return 'MT';
+        if (zip >= 60000 && zip <= 62999) return 'IL';
+        if (zip >= 63000 && zip <= 65999) return 'MO';
+        if (zip >= 66000 && zip <= 67999) return 'KS';
+        if (zip >= 68000 && zip <= 69999) return 'NE';
+        if (zip >= 70000 && zip <= 71599) return 'LA';
+        if (zip >= 71600 && zip <= 72999) return 'AR';
+        if (zip >= 73000 && zip <= 74999) return 'OK';
+        if (zip >= 75000 && zip <= 79999) return 'TX';
+        if (zip >= 80000 && zip <= 81999) return 'CO';
+        if (zip >= 82000 && zip <= 83199) return 'WY';
+        if (zip >= 83200 && zip <= 83999) return 'ID';
+        if (zip >= 84000 && zip <= 84999) return 'UT';
+        if (zip >= 85000 && zip <= 86999) return 'AZ';
+        if (zip >= 87000 && zip <= 88499) return 'NM';
+        if (zip >= 88500 && zip <= 89999) return 'NV';
+        if (zip >= 90000 && zip <= 96699) return 'CA';
+        if (zip >= 97000 && zip <= 97999) return 'OR';
+        if (zip >= 98000 && zip <= 99499) return 'WA';
+    }
+
+    return 'NJ'; // ultimate fallback
+}
+
+// ==============================
+// MAIN FLOW
+// ==============================
+let currentLawnData = {};
+
+function analyzeAddress() {
+    const address = document.getElementById('address-input').value.trim();
+    if (!address) {
+        document.getElementById('address-input').style.borderColor = '#ef4444';
+        setTimeout(() => document.querySelector('.address-bar').style.borderColor = '#e2e8d5', 2000);
+        return;
+    }
+
+    const state = extractState(address);
+    const region = getRegion(state);
+    const data = regionData[region];
+
+    // Estimate lawn size with some randomness for realism
+    const baseSize = data.avgLot * data.turfPct;
+    const variance = (Math.random() - 0.5) * baseSize * 0.3;
+    const lawnSize = Math.round((baseSize + variance) / 100) * 100;
+
+    currentLawnData = { address, state, region, data, lawnSize };
+
+    // Hide hero + how it works
+    document.getElementById('hero-section').style.display = 'none';
+    document.getElementById('how-it-works').style.display = 'none';
+
+    // Show zoom screen
+    const zoomScreen = document.getElementById('zoom-screen');
+    zoomScreen.classList.add('show');
+    document.body.style.overflow = 'hidden';
+
+    // HUD address
+    document.getElementById('hud-address').textContent = address;
+
+    // Build map embed URL helper
+    const mapQ = encodeURIComponent(address);
+    function mapUrl(zoom) {
+        return `https://maps.google.com/maps?q=${mapQ}&t=k&z=${zoom}&output=embed`;
+    }
+
+    // Preload map iframes at different zoom levels
+    document.getElementById('zl-1').innerHTML = `<iframe src="${mapUrl(3)}" loading="eager"></iframe>`;
+    document.getElementById('zl-2').innerHTML = `<iframe src="${mapUrl(9)}" loading="eager"></iframe>`;
+    document.getElementById('zl-3').innerHTML = `<iframe src="${mapUrl(15)}" loading="eager"></iframe>`;
+    document.getElementById('zl-4').innerHTML = `<iframe src="${mapUrl(19)}" loading="eager"></iframe>`;
+
+    // Zoom sequence timeline
+    const steps = ['zs-1', 'zs-2', 'zs-3', 'zs-4', 'zs-5'];
+    const layers = ['zl-1', 'zl-2', 'zl-3', 'zl-4'];
+
+    function setStep(idx) {
+        steps.forEach((s, i) => {
+            const el = document.getElementById(s);
+            el.classList.remove('active', 'done');
+            if (i < idx) el.classList.add('done');
+            if (i === idx) el.classList.add('active');
+        });
+    }
+
+    function showLayer(idx) {
+        layers.forEach((l, i) => {
+            const el = document.getElementById(l);
+            if (i < idx) {
+                el.classList.remove('active');
+                el.classList.add('zooming-past');
+            } else if (i === idx) {
+                el.classList.add('active');
+                el.classList.remove('zooming-past');
+            }
+        });
+    }
+
+    // Step 1: Show earth view (z=3), "Locating" — 0ms
+    setTimeout(() => {
+        setStep(0);
+        showLayer(0);
+    }, 300);
+
+    // Step 2: Zoom to continent (z=9), "Satellite" — 1500ms
+    setTimeout(() => {
+        setStep(1);
+        showLayer(1);
+        zoomScreen.classList.add('zoomed-in');
+        document.getElementById('crosshair-label').textContent = state;
+    }, 1800);
+
+    // Step 3: Zoom to city (z=15), "Measuring" — 3200ms
+    setTimeout(() => {
+        setStep(2);
+        showLayer(2);
+        document.getElementById('crosshair-label').textContent = '~' + lawnSize.toLocaleString() + ' SQ FT';
+    }, 3400);
+
+    // Step 4: Zoom to house (z=19), "Analyzing" — 5000ms
+    setTimeout(() => {
+        setStep(3);
+        showLayer(3);
+    }, 5000);
+
+    // Step 5: Done — 6500ms
+    setTimeout(() => {
+        setStep(4);
+    }, 6500);
+
+    // Flash and transition to results — 7200ms
+    setTimeout(() => {
+        document.getElementById('zoom-flash').classList.add('flash');
+        setTimeout(() => {
+            zoomScreen.classList.remove('show');
+            zoomScreen.classList.remove('zoomed-in');
+            document.getElementById('zoom-flash').classList.remove('flash');
+            document.body.style.overflow = '';
+            // Clean up layers
+            layers.forEach(l => {
+                const el = document.getElementById(l);
+                el.classList.remove('active', 'zooming-past');
+            });
+            showResults();
+        }, 500);
+    }, 7200);
+}
+
+function showResults() {
+    const { address, state, data, lawnSize } = currentLawnData;
+    const results = document.getElementById('results');
+
+    // Header
+    document.getElementById('display-address').textContent = address;
+
+    // Static stat cards (non-size ones)
+    document.getElementById('sc-temp').textContent = data.soilTemp + '\u00B0F';
+    document.getElementById('sc-grass').textContent = data.grass;
+    document.getElementById('sc-zone').textContent = 'Zone ' + data.zoneShort;
+
+    // Satellite map (Google Maps embed — no API key needed for embed)
+    const mapQuery = encodeURIComponent(address);
+    document.getElementById('sat-map').innerHTML = `
+        <iframe src="https://maps.google.com/maps?q=${mapQuery}&t=k&z=19&output=embed" allowfullscreen loading="lazy"></iframe>
+    `;
+
+    // Tips (static — don't change with lawn size)
+    const tipsHTML = data.tips.map(tip => `
+        <div class="tip">
+            <div class="tip-icon">${tip.icon}</div>
+            <div class="tip-text">
+                <h4>${tip.title}</h4>
+                <p>${tip.desc}</p>
+            </div>
+        </div>
+    `).join('');
+    document.getElementById('tips-container').innerHTML = tipsHTML;
+
+    // Set slider to initial estimate
+    const slider = document.getElementById('lawn-slider');
+    slider.value = lawnSize;
+
+    // Render size-dependent sections
+    renderSizeDependentSections(lawnSize);
+
+    // Slider listener — live update everything
+    slider.addEventListener('input', function() {
+        const newSize = parseInt(this.value);
+        currentLawnData.lawnSize = newSize;
+        renderSizeDependentSections(newSize);
+        // Flash the "updated" notice
+        const notice = document.getElementById('adj-updated');
+        notice.classList.remove('show');
+        void notice.offsetWidth; // force reflow to restart animation
+        notice.classList.add('show');
+        setTimeout(() => notice.classList.remove('show'), 2000);
+    });
+
+    results.classList.add('show');
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Everything that changes when lawn size changes
+function renderSizeDependentSections(lawnSize) {
+    const { data } = currentLawnData;
+    const region = currentLawnData.region;
+
+    // Stat card + displays
+    document.getElementById('sc-size').textContent = lawnSize.toLocaleString() + ' sqft';
+    document.getElementById('lawn-sq').textContent = lawnSize.toLocaleString();
+    document.getElementById('adj-value').textContent = lawnSize.toLocaleString() + ' sq ft';
+
+    // Calendar with inline product recommendations
+    const calHTML = data.calendar.map((item, i) => {
+        let productHTML = '';
+        if (item.product && products[item.product]) {
+            const p = products[item.product];
+            const bagsNeeded = p.coverageSqFt ? Math.ceil(lawnSize / p.coverageSqFt) : 1;
+            const bagsLabel = bagsNeeded === 1 ? '1 bag' : `${bagsNeeded} bags`;
+            productHTML = `
+                <div class="product-rec">
+                    <div class="prod-label">What we'd use</div>
+                    <div class="prod-name">${p.name}</div>
+                    <div class="prod-details">${p.price} &middot; ${bagsLabel} for your ${lawnSize.toLocaleString()} sq ft lawn</div>
+                    <a href="${affLink(p.slug)}" target="_blank" class="prod-link">Buy from Anderson's &rarr;</a>
+                </div>
+            `;
+        }
+        return `
+            <div class="cal-card ${i === 0 ? 'current' : ''}">
+                <div class="cal-month">${item.months}</div>
+                <div class="cal-task">${item.task}</div>
+                <div class="cal-desc">${item.desc}</div>
+                <span class="cal-badge ${item.badge}">${item.badge === 'now' ? 'Now' : item.badge === 'upcoming' ? 'Up Next' : 'Coming Soon'}</span>
+                ${productHTML}
+            </div>
+        `;
+    }).join('');
+    document.getElementById('calendar-grid').innerHTML = calHTML;
+
+    // Product cards section
+    const recKeys = regionProducts[region] || regionProducts.northeast;
+    const prodHTML = recKeys.map(key => {
+        const p = products[key];
+        if (!p) return '';
+        const bagsNeeded = p.coverageSqFt ? Math.ceil(lawnSize / p.coverageSqFt) : 1;
+        const coverageNote = p.coverageSqFt
+            ? `Covers ${p.coverage}/bag &middot; You need ${bagsNeeded === 1 ? '1 bag' : bagsNeeded + ' bags'}`
+            : p.coverage;
+        return `
+            <div class="p-card">
+                <div class="p-cat">${p.cat}</div>
+                <div class="p-name">${p.name}</div>
+                <div class="p-desc">${p.desc}</div>
+                <div class="p-price">${p.price}</div>
+                <div class="p-coverage">${coverageNote}</div>
+                <a href="${affLink(p.slug)}" target="_blank" class="prod-link">Get it from Anderson's &rarr;</a>
+            </div>
+        `;
+    }).join('');
+    document.getElementById('product-cards').innerHTML = prodHTML;
+
+    // SMS preview personalization
+    document.getElementById('sms-temp').textContent = data.soilTemp + '\u00B0F';
+    document.getElementById('sms-size').textContent = lawnSize.toLocaleString() + ' sq ft';
+    const firstProduct = data.calendar.find(c => c.product);
+    if (firstProduct && products[firstProduct.product]) {
+        const fp = products[firstProduct.product];
+        const fpBags = fp.coverageSqFt ? Math.ceil(lawnSize / fp.coverageSqFt) : 1;
+        document.querySelector('.sample-sms').innerHTML = `
+            <div class="sms-label">&#128994; Sample LawnFlex Alert</div>
+            <strong>GAME TIME:</strong> Soil temps hit <strong>${data.soilTemp}\u00B0F</strong> in your area. Apply ${firstProduct.task.toLowerCase()} to your <strong>${lawnSize.toLocaleString()} sq ft</strong> lawn. Coach recommends <strong>${fp.name}</strong> \u2014 ${fp.desc.toLowerCase()} ${fpBags === 1 ? '1 bag' : fpBags + ' bags'}, ${fp.price}, free shipping.<br>
+            <a href="${affLink(fp.slug)}" target="_blank" class="link" style="text-decoration:none;">&#128722; Buy from Anderson's &rarr;</a>
+        `;
+    }
+}
+
+// Phone formatting
+document.getElementById('phone-input').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g, '').slice(0, 10);
+    if (v.length >= 7) v = `(${v.slice(0,3)}) ${v.slice(3,6)}-${v.slice(6)}`;
+    else if (v.length >= 4) v = `(${v.slice(0,3)}) ${v.slice(3)}`;
+    else if (v.length >= 1) v = `(${v}`;
+    e.target.value = v;
+});
+
+function submitPhone() {
+    const phone = document.getElementById('phone-input').value.trim();
+    if (phone.replace(/\D/g, '').length < 10) {
+        document.getElementById('phone-input').style.borderColor = '#ef4444';
+        setTimeout(() => document.getElementById('phone-input').style.borderColor = '', 2000);
+        return;
+    }
+
+    // Disable button while submitting
+    const btn = document.querySelector('.signup-cta .phone-row button');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    // Build the payload with all the context we have
+    const payload = {
+        phone: phone,
+        address: currentLawnData.address || '',
+        state: currentLawnData.state || '',
+        region: currentLawnData.region || '',
+        lawnSize: currentLawnData.lawnSize || '',
+        grassType: currentLawnData.data?.grass || '',
+        climateZone: currentLawnData.data?.zone || '',
+        soilTemp: currentLawnData.data?.soilTemp || '',
+        signupDate: new Date().toISOString(),
+        _subject: 'New LawnFlex SMS signup!'
+    };
+
+    // POST to Formspree
+    fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(res => {
+        if (res.ok) {
+            // Success
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('signup-ok').classList.add('show');
+            document.getElementById('ok-size').textContent = currentLawnData.lawnSize?.toLocaleString() || '4,200';
+        } else {
+            throw new Error('Form submission failed');
+        }
+    })
+    .catch(err => {
+        // If Formspree isn't set up yet, still show success (for testing)
+        // but log the error
+        console.warn('Formspree submit error:', err);
+        console.log('Signup data (not sent):', payload);
+        document.getElementById('signup-form').style.display = 'none';
+        document.getElementById('signup-ok').classList.add('show');
+        document.getElementById('ok-size').textContent = currentLawnData.lawnSize?.toLocaleString() || '4,200';
+    })
+    .finally(() => {
+        btn.textContent = 'Get Alerts';
+        btn.disabled = false;
+    });
+}
+
+// Enter key support
+document.getElementById('address-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') analyzeAddress();
+});
+document.getElementById('phone-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitPhone();
+});
+
+// Products nav link handler
+function handleProductsClick(e) {
+    if (document.getElementById('results').classList.contains('show')) {
+        // Results visible — scroll to products
+        return; // let the default anchor behavior work
+    }
+    e.preventDefault();
+    const hero = document.getElementById('hero-section');
+    if (hero && hero.style.display !== 'none') {
+        // No results yet — scroll to address bar and prompt
+        const input = document.getElementById('address-input');
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+            input.focus();
+            const bar = document.querySelector('.address-bar');
+            bar.style.borderColor = '#16a34a';
+            bar.style.boxShadow = '0 0 0 4px rgba(34,197,94,0.15)';
+            input.placeholder = 'Enter your address first to see products...';
+            setTimeout(() => {
+                bar.style.borderColor = '#e2e8d5';
+                bar.style.boxShadow = 'none';
+                input.placeholder = '123 Main St, Anytown, OH 44101';
+            }, 2500);
+        }, 400);
+    }
+}
+
+// (Social proof counter removed — keeping it honest as a new launch)
+</script>
+</body>
+</html>
