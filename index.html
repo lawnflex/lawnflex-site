@@ -1987,6 +1987,7 @@ function renderSizeDependentSections(lawnSize) {
             'Full Season Bundle': {withIcon: '\u{1F3C6}', withText: 'Complete coverage, perfect lawn year-round', noIcon: '\u274C', noText: 'Inconsistent care leads to weeds and bare spots'}
         };
         return data[cat] || {withIcon: '\u2705', withText: 'Healthy, treated lawn', noIcon: '\u274C', noText: 'Untreated, stressed lawn'};
+    }
 
         const cmp = getCompare(p.cat);
         if (!p) return '';
