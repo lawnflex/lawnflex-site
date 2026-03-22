@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works — LawnFlex</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23166534'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='bold' font-size='16' fill='white' text-anchor='middle'%3ELF%3C/text%3E%3C/svg%3E">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; background: #f8faf5; }
+
+/* NAV */
+nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; background: #f8faf5; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+.nav-logo { font-weight: 800; font-size: 1.3rem; color: #166534; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.nav-logo .mark { background: #166534; color: #fff; padding: 3px 7px; border-radius: 6px; font-size: 0.85rem; }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a { text-decoration: none; color: #444; font-size: 0.95rem; font-weight: 500; }
+.nav-links a:hover { color: #166534; }
+.nav-cta { background: #fff; border: 2px solid #166534; color: #166534; padding: 8px 20px; border-radius: 24px; font-weight: 700; font-size: 0.85rem; text-decoration: none; letter-spacing: 0.03em; }
+.nav-cta:hover { background: #166534; color: #fff; }
+
+/* HERO */
+.hero { text-align: center; padding: 80px 20px 60px; max-width: 800px; margin: 0 auto; }
+.hero-badge { display: inline-block; background: #e8f5e9; color: #2e7d32; padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px; }
+.hero h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; color: #1a1a1a; margin-bottom: 20px; }
+.hero h1 span { color: #166534; }
+.hero p { font-size: 1.2rem; color: #666; line-height: 1.6; max-width: 600px; margin: 0 auto; }
+
+/* CONCEPT */
+.concept { background: #166534; color: #fff; padding: 60px 20px; text-align: center; }
+.concept h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 16px; }
+.concept p { font-size: 1.1rem; opacity: 0.85; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+/* SEASON SECTIONS */
+.season { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
+.season:nth-child(even) { background: #fff; }
+.season-header { text-align: center; margin-bottom: 50px; }
+.season-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.season-tag { display: inline-block; padding: 4px 14px; border-radius: 16px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+.season-header h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; }
+.season-header p { font-size: 1rem; color: #888; }
+
+/* Spring colors */
+.spring .season-tag { background: #e8f5e9; color: #2e7d32; }
+/* Summer colors */
+.summer .season-tag { background: #fff3e0; color: #e65100; }
+/* Fall colors */
+.fall .season-tag { background: #fbe9e7; color: #bf360c; }
+/* Winter colors */
+.winter .season-tag { background: #e3f2fd; color: #1565c0; }
+
+/* LAYOUT: phone + context side by side */
+.season-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; margin-bottom: 50px; }
+
+/* iPHONE MESSAGE MOCKUP */
+.phone-frame { background: #f5f5f5; border-radius: 32px; padding: 0; max-width: 340px; margin: 0 auto; box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06); overflow: hidden; }
+.phone-notch { background: #1a1a1a; height: 28px; border-radius: 0 0 16px 16px; width: 120px; margin: 0 auto; position: relative; top: 0; }
+.phone-status { display: flex; justify-content: space-between; align-items: center; padding: 4px 20px 0; font-size: 0.7rem; font-weight: 600; color: #1a1a1a; }
+.phone-status-right { display: flex; gap: 4px; align-items: center; }
+.msg-header { text-align: center; padding: 8px 16px 12px; border-bottom: 1px solid #e0e0e0; }
+.msg-header .contact-icon { width: 36px; height: 36px; border-radius: 50%; background: #166534; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 0.8rem; margin: 0 auto 4px; }
+.msg-header .contact-name { font-weight: 600; font-size: 0.85rem; }
+.msg-body { padding: 16px; min-height: 200px; background: #fff; }
+.msg-date { text-align: center; font-size: 0.65rem; color: #999; margin-bottom: 12px; }
+.msg-bubble { max-width: 85%; padding: 10px 14px; border-radius: 18px; font-size: 0.85rem; line-height: 1.45; margin-bottom: 8px; position: relative; }
+.msg-bubble.incoming { background: #e9e9eb; color: #1a1a1a; border-bottom-left-radius: 4px; margin-right: auto; }
+.msg-bubble.lawnflex { background: #166534; color: #fff; border-bottom-left-radius: 4px; margin-right: auto; }
+.msg-bubble .msg-time { font-size: 0.6rem; opacity: 0.6; margin-top: 4px; }
+.msg-bubble.reply { background: #007aff; color: #fff; border-bottom-right-radius: 4px; margin-left: auto; }
+.msg-input { display: flex; align-items: center; padding: 10px 12px; border-top: 1px solid #e0e0e0; background: #f5f5f5; gap: 8px; }
+.msg-input-field { flex: 1; background: #fff; border: 1px solid #ddd; border-radius: 20px; padding: 8px 14px; font-size: 0.8rem; color: #999; }
+.msg-input-send { width: 28px; height: 28px; background: #007aff; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.msg-input-send svg { width: 14px; height: 14px; fill: #fff; }
+
+/* WEATHER/CONTEXT CARD */
+.context-card { background: #fff; border-radius: 16px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+.context-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; color: #166534; }
+.context-detail { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+.context-detail:last-child { border-bottom: none; }
+.context-detail .icon { font-size: 1.3rem; flex-shrink: 0; }
+.context-detail .info h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
+.context-detail .info p { font-size: 0.8rem; color: #888; line-height: 1.4; }
+
+/* COMPARISON */
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px; margin: 0 auto; }
+.comp-card { border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.comp-img { height: 220px; background-size: cover; background-position: center; position: relative; }
+.comp-img::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(transparent, rgba(0,0,0,0.5)); }
+.comp-img .comp-badge { position: absolute; top: 12px; left: 12px; padding: 4px 12px; border-radius: 12px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.comp-img .comp-badge.good { background: #2e7d32; color: #fff; }
+.comp-img .comp-badge.bad { background: #c62828; color: #fff; }
+.comp-body { padding: 20px; background: #fff; }
+.comp-body h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.comp-body p { font-size: 0.85rem; color: #666; line-height: 1.5; }
+
+/* Healthy lawn photo style */
+.img-healthy-spring { background: linear-gradient(135deg, #2d8a3e 0%, #4caf50 30%, #66bb6a 60%, #43a047 100%); }
+.img-weedy { background: linear-gradient(135deg, #8d6e42 0%, #6d8c3c 20%, #9e9e6a 40%, #7a8b45 60%, #a39960 80%, #756b3e 100%); }
+.img-healthy-summer { background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 40%, #388e3c 70%, #1b5e20 100%); }
+.img-brown-patches { background: linear-gradient(135deg, #795548 0%, #8d6e63 20%, #6d4c41 40%, #a1887f 60%, #4e342e 80%, #8d6e63 100%); }
+.img-healthy-fall { background: linear-gradient(135deg, #2e7d32 0%, #558b2f 30%, #689f38 60%, #33691e 100%); }
+.img-thin-lawn { background: linear-gradient(135deg, #8d6e63 0%, #a1887f 25%, #6d9b47 40%, #bcaaa4 60%, #7b9a4a 75%, #a1887f 100%); }
+.img-healthy-winter { background: linear-gradient(135deg, #388e3c 0%, #43a047 40%, #4caf50 70%, #2e7d32 100%); }
+.img-slow-recovery { background: linear-gradient(135deg, #9e9d24 0%, #afb42b 30%, #827717 50%, #c0ca33 70%, #9e9d24 100%); }
+
+/* Use actual Unsplash images where available */
+.img-real-healthy { background-image: url('https://images.unsplash.com/photo-1558635924-f4b26bc2360a?w=600&q=80'); }
+.img-real-weedy { background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80'); }
+
+/* COMPARISON image overlays with icons */
+.comp-img .comp-icon { position: absolute; bottom: 16px; right: 16px; font-size: 2rem; z-index: 2; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+
+/* CTA SECTION */
+.cta-section { background: #166534; color: #fff; text-align: center; padding: 80px 20px; }
+.cta-section h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
+.cta-section p { font-size: 1.1rem; opacity: 0.85; margin-bottom: 28px; }
+.cta-btn { display: inline-block; background: #fff; color: #166534; padding: 14px 36px; border-radius: 30px; font-weight: 700; font-size: 1.05rem; text-decoration: none; transition: transform 0.2s; }
+.cta-btn:hover { transform: scale(1.05); }
+
+/* FOOTER */
+footer { text-align: center; padding: 40px 20px; color: #888; font-size: 0.85rem; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.2rem; }
+  .season-content { grid-template-columns: 1fr; gap: 30px; }
+  .comparison { grid-template-columns: 1fr; }
+  nav { padding: 12px 20px; }
+  .nav-links { gap: 16px; }
+  .phone-frame { max-width: 300px; }
+}
+
+/* ARROW CONNECTOR */
+.season-connector { text-align: center; padding: 20px 0; }
+.season-connector .arrow { font-size: 1.5rem; color: #ccc; animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+/* TIMELINE */
+.timeline-label { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600; color: #888; margin-bottom: 4px; }
+.timeline-dot { width: 10px; height: 10px; border-radius: 50%; }
+.spring .timeline-dot { background: #4caf50; }
+.summer .timeline-dot { background: #ff9800; }
+.fall .timeline-dot { background: #ff5722; }
+.winter .timeline-dot { background: #2196f3; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><span class="mark">LF</span> LawnFlex</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="#spring">Spring</a>
+    <a href="#summer">Summer</a>
+    <a href="#fall">Fall</a>
+    <a href="#winter">Winter</a>
+    <a href="index.html" class="nav-cta">SCOUT MY LAWN</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">How It Works</div>
+  <h1>We text you <span>what to apply</span>, the day your lawn needs it.</h1>
+  <p>No guessing. No generic calendar. LawnFlex watches soil temps and local weather in your area, then sends a text the moment it's go-time.</p>
+</div>
+
+<!-- CONCEPT -->
+<div class="concept">
+  <h2>Your lawn runs on a clock. We read it for you.</h2>
+  <p>Soil temperature drives everything in lawn care. Apply too early, it's wasted. Too late, the window closes. We track the numbers so you don't have to.</p>
+</div>
+
+<!-- ======================== SPRING ======================== -->
+<div class="season spring" id="spring">
+  <div class="season-header">
+    <div class="season-icon">🌱</div>
+    <div class="season-tag">March &ndash; April</div>
+    <h2>Spring: Pre-Emergent + Fertilizer</h2>
+    <p>Stop crabgrass before it starts. The window is short.</p>
+  </div>
+
+  <div class="season-content">
+    <!-- PHONE MOCKUP -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-status">
+          <span>9:41</span>
+          <div class="phone-status-right">
+            <span>5G</span>
+            <span>🔋</span>
+          </div>
+        </div>
+        <div class="msg-header">
+          <div class="contact-icon">LF</div>
+          <div class="contact-name">LawnFlex</div>
+        </div>
+        <div class="msg-body">
+          <div class="msg-date">Today &middot; 7:12 AM</div>
+          <div class="msg-bubble lawnflex">
+            🌡️ Soil temps just hit 55&deg;F in La Grange Park, IL. Time to drop pre-emergent before crabgrass wakes up.
+            <div class="msg-time">7:12 AM</div>
+          </div>
+          <div class="msg-bubble lawnflex" style="margin-top: 6px;">
+            Here's what we recommend for your 3,500 sqft KBG/Fescue lawn 👇<br><br>
+            <strong>Scotts Halts Crabgrass Preventer</strong><br>
+            Apply 1 bag this weekend before rain hits Tuesday.
+            <div class="msg-time">7:12 AM</div>
+          </div>
+          <div class="msg-bubble reply">
+            Got it, heading to grab some now 💪
+            <div class="msg-time">7:24 AM</div>
+          </div>
+        </div>
+        <div class="msg-input">
+          <div class="msg-input-field">Text Message</div>
+          <div class="msg-input-send">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTEXT CARD -->
+    <div>
+      <div class="context-card">
+        <h3>Why this timing matters</h3>
+        <div class="context-detail">
+          <div class="icon">🌡️</div>
+          <div class="info">
+            <h4>Soil Temp: 55&deg;F</h4>
+            <p>Crabgrass germinates when soil hits 55&deg;F for 3+ consecutive days. Pre-emergent creates a barrier before seeds sprout.</p>
+          </div>
+        </div>
+        <div class="context-detail">
+          <div class="icon">🌧️</div>
+          <div class="info">
+            <h4>Rain in the Forecast</h4>
+            <p>Light rain Tuesday activates the pre-emergent, working it into the soil. No need to water it in yourself.</p>
+          </div>
+        </div>
+        <div class="context-detail">
+          <div class="icon">📍</div>
+          <div class="info">
+            <h4>Midwest &mdash; Zone 5</h4>
+            <p>In the Chicago suburbs, the pre-emergent window is typically late March to mid-April. Miss it and you're fighting crabgrass all summer.</p>
+          </div>
+        </div>
+        <div class="context-detail">
+          <div class="icon">📐</div>
+          <div class="info">
+            <h4>3,500 sqft Coverage</h4>
+            <p>One bag of Scotts Halts covers 5,000 sqft. You'll have leftover for a second application in 6&ndash;8 weeks.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div class="comparison">
+    <div class="comp-card">
+      <div class="comp-img img-healthy-spring" style="background-image: url('https://images.unsplash.com/photo-1558635924-f4b26bc2360a?w=600&q=80'); background-size: cover; background-position: center;">
+        <span class="comp-badge good">✅ Applied on time</span>
+        <span class="comp-icon">🏆</span>
+      </div>
+      <div class="comp-body">
+        <h4>Thick, weed-free lawn by June</h4>
+        <p>Pre-emergent creates an invisible barrier in the soil. Crabgrass seeds try to sprout but can't push through. Your existing grass fills in dense and clean.</p>
+      </div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-img img-weedy" style="background-image: url('https://images.unsplash.com/photo-1632755079403-a8a5b4e5c3c5?w=600&q=80'); background-size: cover; background-position: center;">
+        <span class="comp-badge bad">❌ Skipped it</span>
+        <span class="comp-icon">😬</span>
+      </div>
+      <div class="comp-body">
+        <h4>Crabgrass takes over by June</h4>
+        <p>Without pre-emergent, crabgrass seeds germinate freely. By summer, flat, wide-bladed crabgrass chokes out your good grass. It dies in fall, leaving bare dirt.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="season-connector"><div class="arrow">↓</div></div>
+
+<!-- ======================== SUMMER ======================== -->
+<div class="season summer" id="summer">
+  <div class="season-header">
+    <div class="season-icon">☀️</div>
+    <div class="season-tag">June &ndash; July</div>
+    <h2>Summer: Grub Control</h2>
+    <p>Protect your roots before grubs destroy them underground.</p>
+  </div>
+
+  <div class="season-content">
+    <!-- PHONE MOCKUP -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-status">
+          <span>9:41</span>
+          <div class="phone-status-right">
+            <span>5G</span>
+            <span>🔋</span>
+          </div>
+        </div>
+        <div class="msg-header">
+          <div class="contact-icon">LF</div>
+          <div class="contact-name">LawnFlex</div>
+        </div>
+        <div class="msg-body">
+          <div class="msg-date">Today &middot; 8:05 AM</div>
+          <div class="msg-bubble lawnflex">
+            🪲 Grub season is here in the Midwest. Japanese beetles are laying eggs in lawns right now.
+            <div class="msg-time">8:05 AM</div>
+          </div>
+          <div class="msg-bubble lawnflex" style="margin-top: 6px;">
+            Apply <strong>GrubEx</strong> this week to kill larvae before they start feeding on your roots.<br><br>
+            One bag covers 5,000 sqft. Water it in within 24 hours.
+            <div class="msg-time">8:05 AM</div>
+          </div>
+          <div class="msg-bubble reply">
+            Will do. Watering tonight anyway
+            <div class="msg-time">8:18 AM</div>
+          </div>
+        </div>
+        <div class="msg-input">
+          <div class="msg-input-field">Text Message</div>
+          <div class="msg-input-send">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTEXT CARD -->
+    <div>
+      <div class="context-card">
+        <h3>Why this timing matters</h3>
+        <div class="context-detail">
+          <div class="icon">🪲</div>
+          <div class="info">
+            <h4>Japanese Beetle Season</h4>
+            <p>Adult beetles emerge in late June and lay eggs in turf. Grub preventers work best when applied before eggs hatch in mid-July.</p>
+          </div>
+        </div>
+        <div class="context-detail">
+          <div class="icon">💧</div>
+          <div class="info">
+            <h4>Water In Within 24 Hours</h4>
+            <p>GrubEx needs to be watered into the soil to reach the root zone where grubs feed. A good soaking or rain does the trick.</p>
+          </div>
+        </div>
+        <div class="context-detail">
+          <div class="icon">🔬</div>
+          <div class="info">
+            <h4>Preventive, Not Reactive</h4>
+            <p>By the time you see brown patches, the damage is already done. Preventive grub control applied in June/July stops the problem before it starts.</p>
+          </div>
+        </div>
+        <div class="context-detail">
+          <div class="icon">🦨</div>
+          <div class="info">
+            <h4>Bonus: No Skunks Digging</h4>
+            <p>Skunks and raccoons tear up lawns hunting for grubs. No grubs, no midnight lawn demolition.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div class="comparison">
+    <div class="comp-card">
+      <div class="comp-img img-healthy-summer">
+        <span class="comp-badge good">✅ Applied on time</span>
+        <span class="comp-icon">💪</span>
+      </div>
+      <div class="comp-body">
+        <h4>Healthy roots, no brown patches</h4>
+        <p>Grub preventer kills larvae before they feed. Your grass stays green through the heat of summer with a strong root system intact.</p>
+      </div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-img img-brown-patches">
+        <span class="comp-badge bad">❌ Skipped it</span>
+        <span class="comp-icon">🪦</span>
+      </div>
+      <div class="comp-body">
+        <h4>Grubs eat roots, lawn goes brown</h4>
+        <p>Grubs sever grass roots underground. Turf peels back like carpet. By August you have dead brown patches that won't recover until you reseed.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="season-connector"><div class="arrow">↓</div></div>
+
+<!-- ======================== FALL ======================== -->
+<div class="season fall" id="fall">
+  <div class="season-header">
+    <div class="season-icon">🍂</div>
+    <div class="season-tag">September &ndash; October</div>
+    <h2>Fall: Overseeding + Fall Fertilizer</h2>
+    <p>The #1 thing you can do for a Midwest lawn. Don't skip this.</p>
+  </div>
+
+  <div class="season-content">
+    <!-- PHONE MOCKUP -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-status">
+          <span>9:41</span>
+          <div class="phone-status-right">
+            <span>5G</span>
+            <span>🔋</span>
+          </div>
+        </div>
+        <div class="msg-header">
+          <div class="contact-icon">LF</div>
+          <div class="contact-name">LawnFlex</div>
+        </div>
+        <div class="msg-body">
+          <div class="msg-date">Today &middot; 6:45 AM</div>
+          <div class="msg-bubble lawnflex">
+            🍂 It's go-time. Soil temps are dropping through 70&deg;F in La Grange Park &mdash; perfect for overseeding KBG.
+            <div class="msg-time">6:45 AM</div>
+          </div>
+          <div class="msg-bubble lawnflex" style="margin-top: 6px;">
+            For your 3,500 sqft lawn:<br><br>
+            <strong>1.</strong> Mow low (2&rdquo;) and bag clippings<br>
+            <strong>2.</strong> Spread <strong>Jonathan Green Black Beauty</strong> seed<br>
+            <strong>3.</strong> Apply <strong>Scotts Starter Fertilizer</strong><br>
+            <strong>4.</strong> Water lightly 2x daily for 2 weeks
+            <div class="msg-time">6:45 AM</div>
+          </div>
+          <div class="msg-bubble reply">
+            This is my favorite time of year 🙌
+            <div class="msg-time">7:02 AM</div>
+          </div>
+        </div>
+        <div class="msg-input">
+          <div class="msg-input-field">Text Message</div>
+          <div class="msg-input-send">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTEXT CARD -->
+    <div>
+      <div class="context-card">
+        <h3>Why this timing matters</h3>
+        <div class="context-detail">
+          <div class="icon">🌡️</div>
+          <div class="info">
+            <h4>Soil Temp: 65&ndash;75&deg;F</h4>
+            <p>Cool-season grass seed germinates best when soil temps are between 50&ndash;65&deg;F. Early fall gives seedlings 6+ weeks to establish before winter.</p>
+          </div>
+        </div>
+        <div class="context-detail">
+          <div class="icon">🌤️</div>
+          <div class="info">
+            <h4>No Weed Competition</h4>
+            <p>Most summer weeds are dying off. New grass seedlings don't have to fight for space, light, or nutrients.</p>
+          </div>
+        </div>
+        <div class="context-detail">
+          <div class="icon">🌿</div>
+          <div class="info">
+            <h4>Cool Nights, Warm Days</h4>
+            <p>September in the Midwest offers ideal 50&ndash;70&deg;F temperature swings. Grass loves these conditions for root development.</p>
+          </div>
+        </div>
+        <div class="context-detail">
+          <div class="icon">💰</div>
+          <div class="info">
+            <h4>Biggest ROI of the Year</h4>
+            <p>Fall overseeding fills in thin spots and thickens turf. One weekend of work pays off all year. This is what separates good lawns from great ones.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div class="comparison">
+    <div class="comp-card">
+      <div class="comp-img img-healthy-fall">
+        <span class="comp-badge good">✅ Applied on time</span>
+        <span class="comp-icon">🌿</span>
+      </div>
+      <div class="comp-body">
+        <h4>Thick, dense turf by next spring</h4>
+        <p>New seedlings establish strong roots through fall and winter. Come spring, your lawn is the first on the block to green up &mdash; thick and lush.</p>
+      </div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-img img-thin-lawn">
+        <span class="comp-badge bad">❌ Skipped it</span>
+        <span class="comp-icon">😔</span>
+      </div>
+      <div class="comp-body">
+        <h4>Thin, patchy lawn carries into spring</h4>
+        <p>Bare spots from summer damage stay bare. Weeds fill in where grass should be. You're starting behind next year.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="season-connector"><div class="arrow">↓</div></div>
+
+<!-- ======================== WINTER ======================== -->
+<div class="season winter" id="winter">
+  <div class="season-header">
+    <div class="season-icon">❄️</div>
+    <div class="season-tag">November</div>
+    <h2>Winter: Winterizer Fertilizer</h2>
+    <p>One last feed before the freeze. Your spring lawn depends on it.</p>
+  </div>
+
+  <div class="season-content">
+    <!-- PHONE MOCKUP -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-status">
+          <span>9:41</span>
+          <div class="phone-status-right">
+            <span>5G</span>
+            <span>🔋</span>
+          </div>
+        </div>
+        <div class="msg-header">
+          <div class="contact-icon">LF</div>
+          <div class="contact-name">LawnFlex</div>
+        </div>
+        <div class="msg-body">
+          <div class="msg-date">Today &middot; 7:30 AM</div>
+          <div class="msg-bubble lawnflex">
+            ❄️ Last feed of the season. First hard freeze hits La Grange Park next week &mdash; drop winterizer this weekend.
+            <div class="msg-time">7:30 AM</div>
+          </div>
+          <div class="msg-bubble lawnflex" style="margin-top: 6px;">
+            <strong>Scotts WinterGuard</strong> &mdash; 1 bag for your lawn.<br><br>
+            Roots will store nutrients all winter. Your spring self will thank you when the lawn greens up 2 weeks before everyone else's.
+            <div class="msg-time">7:30 AM</div>
+          </div>
+          <div class="msg-bubble reply">
+            Last one till spring. Let's go 🎯
+            <div class="msg-time">7:45 AM</div>
+          </div>
+        </div>
+        <div class="msg-input">
+          <div class="msg-input-field">Text Message</div>
+          <div class="msg-input-send">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTEXT CARD -->
+    <div>
+      <div class="context-card">
+        <h3>Why this timing matters</h3>
+        <div class="context-detail">
+          <div class="icon">❄️</div>
+          <div class="info">
+            <h4>Before First Hard Freeze</h4>
+            <p>Winterizer should go down while grass is still slightly green and roots are still active. Once the ground freezes solid, the window closes.</p>
+          </div>
+        </div>
+        <div class="context-detail">
+          <div class="icon">🌱</div>
+          <div class="info">
+            <h4>Root Energy Storage</h4>
+            <p>Grass stores carbohydrates in its roots over winter. A high-potassium winterizer fuels this process, leading to stronger spring green-up.</p>
+          </div>
+        </div>
+        <div class="context-detail">
+          <div class="icon">⏰</div>
+          <div class="info">
+            <h4>Spring Head Start</h4>
+            <p>Winterized lawns green up 2&ndash;3 weeks earlier in spring. Neighbors will ask what your secret is.</p>
+          </div>
+        </div>
+        <div class="context-detail">
+          <div class="icon">🏁</div>
+          <div class="info">
+            <h4>Season Complete</h4>
+            <p>That's it &mdash; 4 key applications, timed perfectly. No more, no less. LawnFlex handles the when. You handle the weekend.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div class="comparison">
+    <div class="comp-card">
+      <div class="comp-img img-healthy-winter">
+        <span class="comp-badge good">✅ Applied on time</span>
+        <span class="comp-icon">🏆</span>
+      </div>
+      <div class="comp-body">
+        <h4>First lawn on the block to green up</h4>
+        <p>Stored nutrients fuel rapid spring growth. While neighbors are still looking at brown, your lawn is already thick and green by late March.</p>
+      </div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-img img-slow-recovery">
+        <span class="comp-badge bad">❌ Skipped it</span>
+        <span class="comp-icon">🐢</span>
+      </div>
+      <div class="comp-body">
+        <h4>Slow, weak spring recovery</h4>
+        <p>Without stored nutrients, grass struggles to wake up. Thin, yellow turf into May. Weeds get a head start while your grass plays catch-up.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Ready to stop guessing?</h2>
+  <p>Drop your address. We'll tell you exactly what your lawn needs, when it needs it.</p>
+  <a href="index.html" class="cta-btn">Scout My Lawn →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 LawnFlex · lawnflex.coach
+</footer>
+
+</body>
+</html>
