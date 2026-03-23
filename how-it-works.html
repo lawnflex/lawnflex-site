@@ -669,5 +669,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
+
+<script>
+(function() {
+  var _origSubmit = window.submitPhoneHIW;
+  window.submitPhoneHIW = function() {
+    if (_origSubmit) _origSubmit.apply(this, arguments);
+    
+    var input = document.querySelector('.signup-section input[type="tel"]') ||
+                document.querySelector('.signup-section input');
+    var phoneVal = input ? input.value : '';
+    
+    if (phoneVal && phoneVal.length >= 7) {
+      fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: phoneVal,
+          page: 'how-it-works',
+          address: ''
+        })
+      }).catch(function(err) { console.log('Signup API error:', err); });
+    }
+  };
+})();
+</script>
 </body>
 </html>
