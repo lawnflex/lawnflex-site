@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       
       // Write back
       await put('signups.json', JSON.stringify(signups, null, 2), {
-        access: 'private',
+        access: 'public',
         addRandomSuffix: false,
         contentType: 'application/json'
       });
