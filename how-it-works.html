@@ -736,14 +736,13 @@ footer { text-align: center; padding: 40px 20px; color: #888; font-size: 0.85rem
 function submitPhoneHIW() {
   var phone = document.getElementById('phone-hiw').value.trim();
   if (!phone || phone.length < 7) { document.getElementById('phone-hiw').style.borderColor='#c62828'; return; }
-  localStorage.setItem('lawnflex_phone', phone);
-  localStorage.setItem('lawnflex_signup', 'true');
+  localStorage.setItem('lawnflex_signed_up', 'true');
   document.getElementById('signup-form-hiw').style.display = 'none';
   document.getElementById('signup-done-hiw').style.display = 'block';
 }
 // Check if returning user
 document.addEventListener('DOMContentLoaded', function() {
-  if (localStorage.getItem('lawnflex_signup') === 'true') {
+  if (localStorage.getItem('lawnflex_signed_up') === 'true') {
     var form = document.getElementById('signup-form-hiw');
     var done = document.getElementById('signup-done-hiw');
     if (form && done) { form.style.display = 'none'; done.style.display = 'block'; }
