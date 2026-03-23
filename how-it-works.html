@@ -165,6 +165,21 @@ footer { text-align: center; padding: 40px 20px; color: #888; font-size: 0.85rem
 .summer .timeline-dot { background: #ff9800; }
 .fall .timeline-dot { background: #ff5722; }
 .winter .timeline-dot { background: #2196f3; }
+
+/* SIGNUP */
+.signup-section { background: #fff; border: 2px solid #dcfce7; border-radius: 20px; padding: 2.5rem; text-align: center; max-width: 700px; margin: 0 auto 40px; }
+.signup-section h2 { font-size: 1.4rem; font-weight: 900; margin-bottom: 0.5rem; }
+.signup-section h2 .green { color: #166534; }
+.signup-section p { color: #666; font-size: 0.95rem; margin-bottom: 1.2rem; line-height: 1.5; }
+.signup-row { display: flex; gap: 10px; max-width: 420px; margin: 0 auto 10px; }
+.signup-row input { flex: 1; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; outline: none; }
+.signup-row input:focus { border-color: #166534; }
+.signup-row button { background: #166534; color: #fff; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; cursor: pointer; white-space: nowrap; }
+.signup-row button:hover { background: #14532d; }
+.signup-note { font-size: 0.8rem; color: #999; }
+.signup-done { display: none; padding: 20px; background: #dcfce7; border-radius: 12px; text-align: center; }
+.signup-done h3 { color: #166534; font-size: 1.1rem; margin-bottom: 4px; }
+.signup-done p { color: #666; font-size: 0.85rem; }
 </style>
 
 <script type="application/ld+json">
@@ -684,6 +699,26 @@ footer { text-align: center; padding: 40px 20px; color: #888; font-size: 0.85rem
   </div>
 </div>
 
+
+<!-- SMS SIGNUP -->
+<div style="padding: 60px 20px;">
+  <div class="signup-section" id="signup-box">
+    <h2>We <span class="green">text you</span> when it's time.</h2>
+    <p>Our alerts watch soil temps in your area and ping you the exact day it's time to apply &mdash; with a link to buy the right product. Sign up and never miss a window.</p>
+    <div id="signup-form-hiw">
+      <div class="signup-row">
+        <input type="tel" id="phone-hiw" placeholder="Your phone number">
+        <button onclick="submitPhoneHIW()">Get Alerts</button>
+      </div>
+      <div class="signup-note">~4 texts per season. No spam, no sales calls. Reply STOP anytime.</div>
+    </div>
+    <div class="signup-done" id="signup-done-hiw">
+      <h3>You're in!</h3>
+      <p>We'll text you when it's go-time for your lawn.</p>
+    </div>
+  </div>
+</div>
+
 <!-- CTA -->
 <div class="cta-section">
   <h2>Ready to stop guessing?</h2>
@@ -696,5 +731,24 @@ footer { text-align: center; padding: 40px 20px; color: #888; font-size: 0.85rem
   © 2026 LawnFlex · lawnflex.coach
 </footer>
 
+
+<script>
+function submitPhoneHIW() {
+  var phone = document.getElementById('phone-hiw').value.trim();
+  if (!phone || phone.length < 7) { document.getElementById('phone-hiw').style.borderColor='#c62828'; return; }
+  localStorage.setItem('lawnflex_phone', phone);
+  localStorage.setItem('lawnflex_signup', 'true');
+  document.getElementById('signup-form-hiw').style.display = 'none';
+  document.getElementById('signup-done-hiw').style.display = 'block';
+}
+// Check if returning user
+document.addEventListener('DOMContentLoaded', function() {
+  if (localStorage.getItem('lawnflex_signup') === 'true') {
+    var form = document.getElementById('signup-form-hiw');
+    var done = document.getElementById('signup-done-hiw');
+    if (form && done) { form.style.display = 'none'; done.style.display = 'block'; }
+  }
+});
+</script>
 </body>
 </html>
