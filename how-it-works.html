@@ -28,18 +28,19 @@
 
 <title>How It Works — LawnFlex</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23166534'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='bold' font-size='16' fill='white' text-anchor='middle'%3ELF%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; background: #f8faf5; }
+body { font-family: 'Inter', sans-serif; color: #1a2e05; background: #fafdf7; }
 
 /* NAV */
-nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; background: #f8faf5; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
-.nav-logo { font-weight: 800; font-size: 1.3rem; color: #166534; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-.nav-logo .mark { background: #166534; color: #fff; padding: 3px 7px; border-radius: 6px; font-size: 0.85rem; }
-.nav-links { display: flex; gap: 28px; align-items: center; }
-.nav-links a { text-decoration: none; color: #444; font-size: 0.95rem; font-weight: 500; }
-.nav-links a:hover { color: #166534; }
-.nav-cta { background: #fff; border: 2px solid #166534; color: #166534; padding: 8px 20px; border-radius: 24px; font-weight: 700; font-size: 0.85rem; text-decoration: none; letter-spacing: 0.03em; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2rem; max-width: 1100px; margin: 0 auto; position: sticky; top: 0; z-index: 100; background: rgba(250,253,247,0.92); backdrop-filter: blur(10px); }
+.nav-logo { font-weight: 900; font-size: 1.3rem; color: #1a2e05; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; letter-spacing: -0.02em; }
+.nav-logo .mark { background: #16a34a; color: #fff; padding: 0.15em 0.45em; border-radius: 6px; font-size: 0.85rem; }
+.nav-links { display: flex; gap: 1.5rem; align-items: center; }
+.nav-links a { text-decoration: none; color: #6b7f52; font-size: 0.85rem; font-weight: 600; transition: color 0.2s; }
+.nav-links a:hover { color: #16a34a; }
+.nav-cta { background: #dcfce7; color: #15803d; font-size: 0.75rem; font-weight: 700; padding: 0.4rem 1rem; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none; }
 .nav-cta:hover { background: #166534; color: #fff; }
 
 /* HERO */
@@ -105,30 +106,30 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .context-detail .info p { font-size: 0.8rem; color: #888; line-height: 1.4; }
 
 /* COMPARISON */
-.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px; margin: 0 auto; }
-.comp-card { border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-.comp-img { height: 220px; background-size: cover; background-position: center; position: relative; }
+
+
+
 .comp-img::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(transparent, rgba(0,0,0,0.5)); }
-.comp-img .comp-badge { position: absolute; top: 12px; left: 12px; padding: 4px 12px; border-radius: 12px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
-.comp-img .comp-badge.good { background: #2e7d32; color: #fff; }
-.comp-img .comp-badge.bad { background: #c62828; color: #fff; }
+.comp-img 
+.comp-img 
+.comp-img 
 .comp-body { padding: 20px; background: #fff; }
 .comp-body h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
 .comp-body p { font-size: 0.85rem; color: #666; line-height: 1.5; }
 
 /* Healthy lawn photo style */
-.img-healthy-spring { background: linear-gradient(135deg, #2d8a3e 0%, #4caf50 30%, #66bb6a 60%, #43a047 100%); }
-.img-weedy { background: linear-gradient(135deg, #8d6e42 0%, #6d8c3c 20%, #9e9e6a 40%, #7a8b45 60%, #a39960 80%, #756b3e 100%); }
-.img-healthy-summer { background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 40%, #388e3c 70%, #1b5e20 100%); }
-.img-brown-patches { background: linear-gradient(135deg, #795548 0%, #8d6e63 20%, #6d4c41 40%, #a1887f 60%, #4e342e 80%, #8d6e63 100%); }
-.img-healthy-fall { background: linear-gradient(135deg, #2e7d32 0%, #558b2f 30%, #689f38 60%, #33691e 100%); }
-.img-thin-lawn { background: linear-gradient(135deg, #8d6e63 0%, #a1887f 25%, #6d9b47 40%, #bcaaa4 60%, #7b9a4a 75%, #a1887f 100%); }
-.img-healthy-winter { background: linear-gradient(135deg, #388e3c 0%, #43a047 40%, #4caf50 70%, #2e7d32 100%); }
-.img-slow-recovery { background: linear-gradient(135deg, #9e9d24 0%, #afb42b 30%, #827717 50%, #c0ca33 70%, #9e9d24 100%); }
+
+
+
+
+
+
+
+
 
 /* Use actual Unsplash images where available */
-.img-real-healthy { background-image: url('https://images.unsplash.com/photo-1558635924-f4b26bc2360a?w=600&q=80'); }
-.img-real-weedy { background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80'); }
+
+
 
 /* COMPARISON image overlays with icons */
 .comp-img .comp-icon { position: absolute; bottom: 16px; right: 16px; font-size: 2rem; z-index: 2; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
@@ -147,7 +148,7 @@ footer { text-align: center; padding: 40px 20px; color: #888; font-size: 0.85rem
 @media (max-width: 768px) {
   .hero h1 { font-size: 2.2rem; }
   .season-content { grid-template-columns: 1fr; gap: 30px; }
-  .comparison { grid-template-columns: 1fr; }
+  
   nav { padding: 12px 20px; }
   .nav-links { gap: 16px; }
   .phone-frame { max-width: 300px; }
@@ -333,28 +334,7 @@ footer { text-align: center; padding: 40px 20px; color: #888; font-size: 0.85rem
   </div>
 
   <!-- COMPARISON -->
-  <div class="comparison">
-    <div class="comp-card">
-      <div class="comp-img img-healthy-spring" style="background-image: url('https://images.unsplash.com/photo-1558635924-f4b26bc2360a?w=600&q=80'); background-size: cover; background-position: center;">
-        <span class="comp-badge good">✅ Applied on time</span>
-        <span class="comp-icon">🏆</span>
-      </div>
-      <div class="comp-body">
-        <h4>Thick, weed-free lawn by June</h4>
-        <p>Pre-emergent creates an invisible barrier in the soil. Crabgrass seeds try to sprout but can't push through. Your existing grass fills in dense and clean.</p>
-      </div>
-    </div>
-    <div class="comp-card">
-      <div class="comp-img img-weedy" style="background-image: url('https://images.unsplash.com/photo-1632755079403-a8a5b4e5c3c5?w=600&q=80'); background-size: cover; background-position: center;">
-        <span class="comp-badge bad">❌ Skipped it</span>
-        <span class="comp-icon">😬</span>
-      </div>
-      <div class="comp-body">
-        <h4>Crabgrass takes over by June</h4>
-        <p>Without pre-emergent, crabgrass seeds germinate freely. By summer, flat, wide-bladed crabgrass chokes out your good grass. It dies in fall, leaving bare dirt.</p>
-      </div>
-    </div>
-  </div>
+  
 </div>
 
 <div class="season-connector"><div class="arrow">↓</div></div>
@@ -446,28 +426,7 @@ footer { text-align: center; padding: 40px 20px; color: #888; font-size: 0.85rem
   </div>
 
   <!-- COMPARISON -->
-  <div class="comparison">
-    <div class="comp-card">
-      <div class="comp-img img-healthy-summer">
-        <span class="comp-badge good">✅ Applied on time</span>
-        <span class="comp-icon">💪</span>
-      </div>
-      <div class="comp-body">
-        <h4>Healthy roots, no brown patches</h4>
-        <p>Grub preventer kills larvae before they feed. Your grass stays green through the heat of summer with a strong root system intact.</p>
-      </div>
-    </div>
-    <div class="comp-card">
-      <div class="comp-img img-brown-patches">
-        <span class="comp-badge bad">❌ Skipped it</span>
-        <span class="comp-icon">🪦</span>
-      </div>
-      <div class="comp-body">
-        <h4>Grubs eat roots, lawn goes brown</h4>
-        <p>Grubs sever grass roots underground. Turf peels back like carpet. By August you have dead brown patches that won't recover until you reseed.</p>
-      </div>
-    </div>
-  </div>
+  
 </div>
 
 <div class="season-connector"><div class="arrow">↓</div></div>
@@ -562,28 +521,7 @@ footer { text-align: center; padding: 40px 20px; color: #888; font-size: 0.85rem
   </div>
 
   <!-- COMPARISON -->
-  <div class="comparison">
-    <div class="comp-card">
-      <div class="comp-img img-healthy-fall">
-        <span class="comp-badge good">✅ Applied on time</span>
-        <span class="comp-icon">🌿</span>
-      </div>
-      <div class="comp-body">
-        <h4>Thick, dense turf by next spring</h4>
-        <p>New seedlings establish strong roots through fall and winter. Come spring, your lawn is the first on the block to green up &mdash; thick and lush.</p>
-      </div>
-    </div>
-    <div class="comp-card">
-      <div class="comp-img img-thin-lawn">
-        <span class="comp-badge bad">❌ Skipped it</span>
-        <span class="comp-icon">😔</span>
-      </div>
-      <div class="comp-body">
-        <h4>Thin, patchy lawn carries into spring</h4>
-        <p>Bare spots from summer damage stay bare. Weeds fill in where grass should be. You're starting behind next year.</p>
-      </div>
-    </div>
-  </div>
+  
 </div>
 
 <div class="season-connector"><div class="arrow">↓</div></div>
@@ -675,28 +613,7 @@ footer { text-align: center; padding: 40px 20px; color: #888; font-size: 0.85rem
   </div>
 
   <!-- COMPARISON -->
-  <div class="comparison">
-    <div class="comp-card">
-      <div class="comp-img img-healthy-winter">
-        <span class="comp-badge good">✅ Applied on time</span>
-        <span class="comp-icon">🏆</span>
-      </div>
-      <div class="comp-body">
-        <h4>First lawn on the block to green up</h4>
-        <p>Stored nutrients fuel rapid spring growth. While neighbors are still looking at brown, your lawn is already thick and green by late March.</p>
-      </div>
-    </div>
-    <div class="comp-card">
-      <div class="comp-img img-slow-recovery">
-        <span class="comp-badge bad">❌ Skipped it</span>
-        <span class="comp-icon">🐢</span>
-      </div>
-      <div class="comp-body">
-        <h4>Slow, weak spring recovery</h4>
-        <p>Without stored nutrients, grass struggles to wake up. Thin, yellow turf into May. Weeds get a head start while your grass plays catch-up.</p>
-      </div>
-    </div>
-  </div>
+  
 </div>
 
 
