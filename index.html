@@ -2153,5 +2153,33 @@ function handleProductsClick(e) {
 
 // (Social proof counter removed — keeping it honest as a new launch)
 </script>
+
+<script>
+// Remember returning users
+(function() {
+  var origSubmit = window.submitPhone;
+  if (origSubmit) {
+    window.submitPhone = function() {
+      origSubmit.apply(this, arguments);
+      // After the original runs, save signup state
+      setTimeout(function() {
+        var success = document.getElementById('signup-success');
+        if (success && success.style.display !== 'none') {
+          try { localStorage.setItem('lawnflex_signed_up', 'true'); } catch(e) {}
+        }
+      }, 500);
+    };
+  }
+  // On page load, check if already signed up
+  document.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('lawnflex_signed_up') === 'true') {
+      var form = document.getElementById('signup-form');
+      var success = document.getElementById('signup-success');
+      if (form) form.style.display = 'none';
+      if (success) success.style.display = 'block';
+    }
+  });
+})();
+</script>
 </body>
 </html>
