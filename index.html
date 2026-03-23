@@ -2184,5 +2184,38 @@ function handleProductsClick(e) {
 
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
+
+<script>
+(function() {
+  // Hook into the existing submitPhone to also send data to our API
+  var _origSubmit = window.submitPhone;
+  window.submitPhone = function() {
+    // Call original function first
+    if (_origSubmit) _origSubmit.apply(this, arguments);
+    
+    // Get the phone value from the input
+    var input = document.querySelector('#signup-form input[type="tel"]') || 
+                document.querySelector('#signup-form input');
+    var phoneVal = input ? input.value : '';
+    
+    // Get address if available
+    var addrInput = document.getElementById('addressInput');
+    var addrVal = addrInput ? addrInput.value : '';
+    
+    if (phoneVal && phoneVal.length >= 7) {
+      // POST to our API
+      fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: phoneVal,
+          page: 'index',
+          address: addrVal
+        })
+      }).catch(function(err) { console.log('Signup API error:', err); });
+    }
+  };
+})();
+</script>
 </body>
 </html>
