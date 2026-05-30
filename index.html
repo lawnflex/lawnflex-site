@@ -2213,14 +2213,18 @@ function handleProductsClick(e) {
     var addrVal = addrInput ? addrInput.value : '';
     
     if (phoneVal && phoneVal.length >= 7) {
-      // POST to our API
+      // POST to our API with full lawn context for email alerts
       fetch('/api/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           phone: phoneVal,
           page: 'index',
-          address: addrVal
+          address: (typeof currentLawnData !== 'undefined' && currentLawnData.address) || addrVal || '',
+          grassType: (typeof currentLawnData !== 'undefined' && currentLawnData.data && currentLawnData.data.grass) || '',
+          lawnSize: (typeof currentLawnData !== 'undefined' && currentLawnData.lawnSize) || '',
+          soilTemp: (typeof currentLawnData !== 'undefined' && currentLawnData.data && currentLawnData.data.soilTemp) || '',
+          region: (typeof currentLawnData !== 'undefined' && currentLawnData.region) || ''
         })
       }).catch(function(err) { console.log('Signup API error:', err); });
     }
